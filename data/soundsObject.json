@@ -1,0 +1,34 @@
+{
+  "inicio": "",
+  
+  "balas": "",
+  
+  "cancionesDelJuego": [
+    "", 
+    "",
+    ""
+  ],
+
+  "explosiones": [
+    "",
+    "",
+    ""
+  ],
+
+  "bienvenida": [
+    "", 
+    "",
+    ""
+  ],
+
+  "sonidosSistema": {
+    "win": "",
+    "lose": "",
+    "limite":""
+  },
+
+  "extra": {
+    "luis": "../sounds/luis.ogg",
+    "ali": "../sounds/ali.ogg"
+  }
+}
