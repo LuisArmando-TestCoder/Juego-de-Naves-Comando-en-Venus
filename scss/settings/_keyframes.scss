@@ -1,0 +1,40 @@
+@keyframes jump {
+  80% {
+    top: -5px;
+  }
+}
+@keyframes from-bottom-to-top {
+  95% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    top: -230vh;
+  }
+}
+@keyframes pass-through {
+  0% {
+    bottom: 100%;
+    top: 0;
+  }
+  25% {
+    bottom: 0;
+  }
+  75% {
+    top: 100%;
+  }
+  100% {
+    bottom: 0;
+    top: 100%;
+  }
+}
+@keyframes rotating-sky {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes opac {
+  50% {
+    opacity: 0;
+  }
+}

@@ -1,0 +1,156 @@
+@keyframes jump {
+  80% {
+    top: -5px; } }
+
+@keyframes from-bottom-to-top {
+  95% {
+    opacity: 1; }
+  100% {
+    opacity: 0;
+    top: -230vh; } }
+
+@keyframes pass-through {
+  0% {
+    bottom: 100%;
+    top: 0; }
+  25% {
+    bottom: 0; }
+  75% {
+    top: 100%; }
+  100% {
+    bottom: 0;
+    top: 100%; } }
+
+@keyframes rotating-sky {
+  100% {
+    transform: rotate(360deg); } }
+
+@keyframes opac {
+  50% {
+    opacity: 0; } }
+
+body {
+  background: #000;
+  margin: 0;
+  overflow: hidden;
+  color: #fecf01;
+  text-shadow: 0 0.289vh #0d00a5;
+  font-family: "Rubik Mono One"; }
+
+canvas {
+  z-index: -9001; }
+
+.notDisplay {
+  display: none; }
+
+p {
+  user-select: none;
+  z-index: -1;
+  color: #fecf01;
+  position: relative;
+  width: 600px;
+  text-align: justify;
+  font-size: 34px;
+  font-family: sans-serif;
+  letter-spacing: 0.5vw;
+  font-weight: bold;
+  margin: auto;
+  line-height: 2;
+  text-shadow: 0 0.289vh #0d00a5;
+  top: 150vh; }
+
+.wrapper {
+  height: 100vh;
+  position: relative;
+  overflow: hidden; }
+
+.sky {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 100vw;
+  height: 100vh;
+  animation: rotating-sky 702s linear infinite; }
+  .sky .star {
+    position: absolute; }
+
+#city {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  overflow: hidden; }
+
+.particles {
+  transform: rotate(-45deg);
+  position: absolute;
+  width: 100vw;
+  height: 300vh;
+  top: -100vh;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  transition: 2s; }
+  .particles .line {
+    border: 1px solid #fff;
+    position: absolute;
+    animation: pass-through 3s infinite; }
+
+#startCounter {
+  position: fixed;
+  top: 5vh;
+  left: 5vw; }
+
+#startScreen {
+  transition: 2s;
+  opacity: 1;
+  text-align: center;
+  height: 50vh;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  margin: auto;
+  position: fixed;
+  z-index: 1; }
+  #startScreen #start {
+    border: 12px solid #fecf01;
+    position: relative;
+    padding: 2.89vh 5.78vh;
+    top: 14.45vh;
+    box-shadow: 0 0.289vh 0 0 #0d00a5;
+    text-shadow: 0 0.289vh #0d00a5;
+    background: transparent;
+    font-size: 50px;
+    outline: none;
+    font-family: "Rubik Mono One";
+    color: #fecf01; }
+    #startScreen #start:hover {
+      cursor: pointer; }
+    #startScreen #start:active {
+      box-shadow: 0 0 0 #0d00a5;
+      top: 14.739vh; }
+    #startScreen #start span {
+      position: relative;
+      top: -0px;
+      animation: jump 0.75s step-end infinite; }
+      #startScreen #start span:nth-child(2) {
+        animation-delay: 0.15s; }
+      #startScreen #start span:nth-child(3) {
+        animation-delay: 0.3s; }
+      #startScreen #start span:nth-child(4) {
+        animation-delay: 0.45s; }
+      #startScreen #start span:last-child {
+        animation-delay: 0.6s; }
+
+.container {
+  -webkit-perspective: 100;
+  perspective: 100; }
+
+.textWrapper {
+  position: relative;
+  top: -55vh;
+  height: 150vh;
+  overflow: hidden;
+  transform: rotateX(5deg); }

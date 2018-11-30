@@ -1,0 +1,32 @@
+body {
+  background: #000;
+  margin: 0;
+  overflow: hidden;
+  color: $font-color;
+  text-shadow: 0 $global-measure $button-color;
+  font-family: "Rubik Mono One";
+}
+canvas {
+  z-index: -9001;
+}
+.notDisplay {
+  display: none;
+}
+
+p {
+  user-select: none;
+  z-index: -1;
+  color: $font-color;
+  position: relative;
+  width: 600px;
+  text-align: justify;
+  font-size: 34px;
+  font-family: sans-serif;
+  letter-spacing: 0.5vw;
+  font-weight: bold;
+  margin: auto;
+  line-height: 2;
+  text-shadow: 0 0.289vh $button-color;
+  top: 150vh;
+  //animation: from-bottom-to-top 96s linear infinite;
+}

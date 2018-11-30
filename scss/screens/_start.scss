@@ -1,0 +1,55 @@
+#startCounter {
+  position: fixed;
+  top: 5vh;
+  left: 5vw;
+}
+
+#startScreen {
+  transition: 2s;
+  opacity: 1;
+  text-align: center;
+  height: 50vh;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  margin: auto;
+  position: fixed;
+  z-index: 1;
+  #start {
+    border: 12px solid $font-color;
+    position: relative;
+    padding: $global-measure * 10 $global-measure * 20;
+    top: $global-measure * 50;
+    box-shadow: 0 $global-measure 0 0 $button-color;
+    text-shadow: 0 $global-measure $button-color;
+    background: transparent;
+    font-size: 50px;
+    outline: none;
+    font-family: "Rubik Mono One";
+    color: $font-color;
+    &:hover {
+      cursor: pointer;
+    }
+    &:active {
+      box-shadow: 0 0 0 $button-color;
+      top: $global-measure * 50 + $global-measure;
+    }
+    span {
+      position: relative;
+      top: -0px;
+      animation: jump 5s * 0.15 step-end infinite;
+      &:nth-child(2) {
+        animation-delay: 1s * 0.15;
+      }
+      &:nth-child(3) {
+        animation-delay: 2s * 0.15;
+      }
+      &:nth-child(4) {
+        animation-delay: 3s * 0.15;
+      }
+      &:last-child {
+        animation-delay: 4s * 0.15;
+      }
+    }
+  }
+}

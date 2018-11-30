@@ -1,0 +1,23 @@
+#city {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  overflow: hidden;
+}
+.particles {
+  .line {
+    border: 1px solid #fff;
+    position: absolute;
+    animation: pass-through 3s infinite;
+    //animation-delay: 0.randoms(0, 99);
+  }
+  transform: rotate(-45deg);
+  position: absolute;
+  width: 100vw;
+  height: 300vh;
+  top: -100vh;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  transition: 2s;
+}
