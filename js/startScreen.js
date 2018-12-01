@@ -3,8 +3,7 @@ function startGame() {
     canvas.style.setProperty('z-index', `9001`);
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    window.addEventListener('resize', () => {
-        canvas.width = window.innerWidth;
+    window.addEventListener('resize', ()=>{
         canvas.height = window.innerHeight;
     });
     createObjects();
