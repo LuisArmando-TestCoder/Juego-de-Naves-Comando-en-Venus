@@ -1,8 +1,9 @@
-@import 'settings/_variables.scss';
-@import 'settings/_keyframes.scss';
-@import 'settings/_global.scss';
+@import 'settings/variables';
+@import 'settings/keyframes';
+@import 'settings/mixins';
+@import 'settings/global';
 
-@import 'screens/_nightSky.scss';
-@import 'screens/_skyLines.scss';
-@import 'screens/_start.scss';
-@import 'screens/_storyTelling.scss';
+@import 'screens/nightSky';
+@import 'screens/skyLines';
+@import 'screens/start';
+@import 'screens/storyTelling';

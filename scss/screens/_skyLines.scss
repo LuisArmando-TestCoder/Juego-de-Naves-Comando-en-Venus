@@ -3,6 +3,7 @@
   height: 100vh;
   position: fixed;
   overflow: hidden;
+  z-index: -1;
 }
 .particles {
   .line {

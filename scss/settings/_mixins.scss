@@ -1,0 +1,16 @@
+@mixin button($measure) {
+    top: $measure;
+    text-shadow: 0 $global-measure $button-color;
+    background: transparent;
+    outline: none;
+    font-family: "Rubik Mono One";
+    color: $font-color;
+    &:hover {
+        cursor: pointer;
+    }
+    &:active {
+        text-shadow: 0 0 $button-color;
+        box-shadow: 0 0 $button-color;
+        top: $measure + $global-measure;
+    }
+}

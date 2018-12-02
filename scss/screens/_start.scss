@@ -4,6 +4,15 @@
   left: 5vw;
 }
 
+#nextSongButton{
+  position: fixed;
+  right: 5vw;
+  top: 5vh;
+  border: 0;
+  font-size: 30px;
+  @include button(5vh);
+}
+
 #startScreen {
   transition: 2s;
   opacity: 1;
@@ -16,24 +25,12 @@
   position: fixed;
   z-index: 1;
   #start {
+    font-size: 50px;
     border: 12px solid $font-color;
     position: relative;
     padding: $global-measure * 10 $global-measure * 20;
-    top: $global-measure * 50;
     box-shadow: 0 $global-measure 0 0 $button-color;
-    text-shadow: 0 $global-measure $button-color;
-    background: transparent;
-    font-size: 50px;
-    outline: none;
-    font-family: "Rubik Mono One";
-    color: $font-color;
-    &:hover {
-      cursor: pointer;
-    }
-    &:active {
-      box-shadow: 0 0 0 $button-color;
-      top: $global-measure * 50 + $global-measure;
-    }
+    @include button($global-measure * 50);
     span {
       position: relative;
       top: -0px;

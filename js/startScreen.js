@@ -1,36 +1,39 @@
 function startGame() {
-    console.log('El juego empezó');
+    nextSongButton.style.setProperty('display', 'inline');
     canvas.style.setProperty('z-index', `9001`);
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    window.addEventListener('resize', ()=>{
+    window.addEventListener('resize', () => {
         canvas.height = window.innerHeight;
+        canvas.width = window.innerWidth;
     });
     createObjects();
+    soundsObj.bienvenida[randomSongIntroIndex].pause();
+    soundsObj.cancionesDelJuego[randomSongInGameIndex].play();//se detiene una y empieza otra canción
+    for (let i of soundsObj.cancionesDelJuego) {
+        i.addEventListener('ended', () => {
+            randomSongInGameIndex++;
+            if (randomSongInGameIndex > soundsObj.cancionesDelJuego.length - 1) {
+                randomSongInGameIndex = 0;
+            }
+            for (let a of soundsObj.cancionesDelJuego) {
+                a.pause();
+            }
+            soundsObj.cancionesDelJuego[randomSongInGameIndex].play();
+        });
+    }
+    nextSongButton.addEventListener('click', changeSong);
 }
 
 function startStoryTelling() {
     onSky.style.setProperty('opacity', `0`);
     if (storyTellingBool) {
-        let time = 42;
-        storyContainer.style.setProperty('animation', `from-bottom-to-top ${time}s linear forwards`);
-        wt(() => {
-            startGame();
-        }, time * 1000);
-        theStartInterval = wi(() => {
-            startCounter.innerHTML = time;
-            time--;
-            if (time < 0) {
-                window.clearInterval(theStartInterval);
-                startCounter.innerHTML = '';
-            }
-        }, 1000);
+        tellStory();
         storyTellingBool = false;
     } else {
         startGame();
     }
 }
-
 startButton.addEventListener('click', () => {
     canvas.className = '';
     startScreen.style.setProperty('z-index', -1);
@@ -51,12 +54,11 @@ function genSky(selector, manyStars) {
         sp(onSky.lastChild, 'background', colorArr[r(0, colorArr.length)]);
         sp(onSky.lastChild, 'animation', 'opac 2.' + r(1, 9) + 's infinite');
         sp(onSky.lastChild, 'animation-delay', r(0, 1) + '.' + r(0, 9) + 's');
-        let size = r(1, 5);
+        let size = r(1, 3);
         sp(onSky.lastChild, 'width', size + 'px');
         sp(onSky.lastChild, 'height', size + 'px');
     }
 }
-genSky('.sky', 50);
 function genParticles(selector, manyLines) {
     let line = '<div class="line"></div>';
     onSky = qs(selector);
@@ -66,4 +68,7 @@ function genParticles(selector, manyLines) {
         sp(onSky.lastChild, 'animation-delay', r(0, 9) + '.' + r(0, 9) + 's');
     }
 }
+genSky('.sky', 180);
 genParticles('.particles', 20);
+
+nextSongButton.style.setProperty('display', 'none');

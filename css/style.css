@@ -62,7 +62,8 @@ p {
 .wrapper {
   height: 100vh;
   position: relative;
-  overflow: hidden; }
+  overflow: hidden;
+  z-index: -1; }
 
 .sky {
   position: absolute;
@@ -81,7 +82,8 @@ p {
   width: 100%;
   height: 100vh;
   position: fixed;
-  overflow: hidden; }
+  overflow: hidden;
+  z-index: -1; }
 
 .particles {
   transform: rotate(-45deg);
@@ -103,6 +105,25 @@ p {
   top: 5vh;
   left: 5vw; }
 
+#nextSongButton {
+  position: fixed;
+  right: 5vw;
+  top: 5vh;
+  border: 0;
+  font-size: 30px;
+  top: 5vh;
+  text-shadow: 0 0.289vh #0d00a5;
+  background: transparent;
+  outline: none;
+  font-family: "Rubik Mono One";
+  color: #fecf01; }
+  #nextSongButton:hover {
+    cursor: pointer; }
+  #nextSongButton:active {
+    text-shadow: 0 0 #0d00a5;
+    box-shadow: 0 0 #0d00a5;
+    top: 5.289vh; }
+
 #startScreen {
   transition: 2s;
   opacity: 1;
@@ -115,21 +136,22 @@ p {
   position: fixed;
   z-index: 1; }
   #startScreen #start {
+    font-size: 50px;
     border: 12px solid #fecf01;
     position: relative;
     padding: 2.89vh 5.78vh;
-    top: 14.45vh;
     box-shadow: 0 0.289vh 0 0 #0d00a5;
+    top: 14.45vh;
     text-shadow: 0 0.289vh #0d00a5;
     background: transparent;
-    font-size: 50px;
     outline: none;
     font-family: "Rubik Mono One";
     color: #fecf01; }
     #startScreen #start:hover {
       cursor: pointer; }
     #startScreen #start:active {
-      box-shadow: 0 0 0 #0d00a5;
+      text-shadow: 0 0 #0d00a5;
+      box-shadow: 0 0 #0d00a5;
       top: 14.739vh; }
     #startScreen #start span {
       position: relative;
