@@ -86,15 +86,15 @@ let soundsObj = {
   balas: new Audio(),
 
   cancionesDelJuego: [
-    new Audio('./sounds/gameSongs/GetLucky.mp3'),
-    new Audio('./sounds/gameSongs/Ghostbusters.mp3'),
-    new Audio('./sounds/gameSongs/MrBlueSky.mp3'),
-    new Audio('./sounds/gameSongs/NeverGonnaGiveYouUp.mp3'),
-    new Audio('./sounds/gameSongs/TakeMeHomeCountryRoads.mp3'),
-    new Audio('./sounds/gameSongs/TalkDirtyToMe.mp3'),
-    new Audio('./sounds/gameSongs/TheFinalCountdown.mp3'),
-    new Audio('./sounds/gameSongs/TheTrooper.mp3'),
-    new Audio('./sounds/gameSongs/Wiggle.mp3')
+    new Audio('sounds/gameSongs/GetLucky.mp3'),
+    new Audio('sounds/gameSongs/Ghostbusters.mp3'),
+    new Audio('sounds/gameSongs/MrBlueSky.mp3'),
+    new Audio('sounds/gameSongs/NeverGonnaGiveYouUp.mp3'),
+    new Audio('sounds/gameSongs/TakeMeHomeCountryRoads.mp3'),
+    new Audio('sounds/gameSongs/TalkDirtyToMe.mp3'),
+    new Audio('sounds/gameSongs/TheFinalCountdown.mp3'),
+    new Audio('sounds/gameSongs/TheTrooper.mp3'),
+    new Audio('sounds/gameSongs/Wiggle.mp3')
   ],
 
   explosiones: [
@@ -104,10 +104,10 @@ let soundsObj = {
   ],
 
   bienvenida: [
-    new Audio('./sounds/introSongs/AnotherOneBitesTheDust.mp3'),
-    new Audio('./sounds/introSongs/StarWars.mp3'),
-    new Audio('./sounds/introSongs/TurnDownForWhat.mp3'),
-    new Audio('./sounds/introSongs/WarPigs.mp3')
+    new Audio('sounds/introSongs/AnotherOneBitesTheDust.mp3'),
+    new Audio('sounds/introSongs/StarWars.mp3'),
+    new Audio('sounds/introSongs/TurnDownForWhat.mp3'),
+    new Audio('sounds/introSongs/WarPigs.mp3')
   ],
 
   sonidosSistema: {
@@ -117,8 +117,8 @@ let soundsObj = {
   },
 
   extra: {
-    luis: new Audio('./sounds/extras/luis.ogg'),
-    ali: new Audio('./sounds/extras/ali.ogg')
+    luis: new Audio('sounds/extras/luis.ogg'),
+    ali: new Audio('sounds/extras/ali.ogg')
   }
 }
 
@@ -163,24 +163,24 @@ function tellStory() {
 }
 
 function genImages() {
-  imagesObj.asteroids[0].src = './img/003-asteroid.svg';
-  imagesObj.asteroids[1].src = './img/008-asteroid-1.svg';
-  imagesObj.spaceShip[0].src = './img/006-spaceship.svg';
+  imagesObj.asteroids[0].src = 'img/003-asteroid.svg';
+  imagesObj.asteroids[1].src = 'img/008-asteroid-1.svg';
+  imagesObj.spaceShip[0].src = 'img/006-spaceship.svg';
   let imgCounter = 0;
   wi(() => {
     imgCounter++;
     if(imgCounter === 3){
       imgCounter = 0;
     }
-    imagesObj.spaceShip[1].src = `./img/007-spaceship-1-${imgCounter}.svg`;
+    imagesObj.spaceShip[1].src = `img/007-spaceship-1-${imgCounter}.svg`;
   }, 250);
-  imagesObj.boom[0].src = './img/011-explosion.svg';
-  imagesObj.boom[1].src = './img/012-boom.svg';
-  imagesObj.ufo[0].src = './img/001-ufo.svg';
-  imagesObj.ufo[1].src = './img/002-ufo-1.svg';
-  imagesObj.ufo[2].src = './img/004-ufo-2.svg';
-  imagesObj.ufo[3].src = './img/005-ufo-3.svg';
-  imagesObj.venus.src = './img/009-venus.svg';
+  imagesObj.boom[0].src = 'img/011-explosion.svg';
+  imagesObj.boom[1].src = 'img/012-boom.svg';
+  imagesObj.ufo[0].src = 'img/001-ufo.svg';
+  imagesObj.ufo[1].src = 'img/002-ufo-1.svg';
+  imagesObj.ufo[2].src = 'img/004-ufo-2.svg';
+  imagesObj.ufo[3].src = 'img/005-ufo-3.svg';
+  imagesObj.venus.src = 'img/009-venus.svg';
 }
 
 function drawPlanet() {
