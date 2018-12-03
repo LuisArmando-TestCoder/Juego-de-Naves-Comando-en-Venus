@@ -8,7 +8,7 @@ function createObjects() {
 function draw() {
     ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
     drawPlanet();
-    ctx.drawImage(imagesObj.spaceShip[1], ship.x, ship.y, ship.size, ship.size);
+    ship.setShipPosition();
     if (bulletArray.length > 0) drawBullets();
     window.requestAnimationFrame(draw);
 }

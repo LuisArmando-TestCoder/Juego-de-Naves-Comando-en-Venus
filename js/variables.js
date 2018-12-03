@@ -4,6 +4,7 @@
 let storyTellingBool;
 let ctx = canvas.getContext('2d');
 let planetSize = 550;
+let planetX = canvas.height - (canvas.height + canvas.height) / 1.15;
 let theStartInterval; // to set a counter on corner
 let onSky;
 let bulletSpeed = 10;
@@ -20,43 +21,41 @@ let ship = {
   size: 50,
   y: undefined,
   x: 300,
-  speed: 10,
+  speed: 7,
+  controlsBool: false,
   controls: (e) => {
+    ship.controlsBool = true;
     switch (e.keyCode) {
-      case 40:
-        ship.y += ship.speed;
-        if (ship.y > canvas.height) {
-          ship.y = 0 - ship.size;
-        }
+      case 40: //down
+        if (ship.speed < 0) ship.speed = -ship.speed;
         break;
-      case 38:
-        if (ship.y < 0 - ship.size) {
-          ship.y = canvas.height;
-        }
-        ship.y -= ship.speed;
+      case 38: //up
+        if (ship.speed > 0) ship.speed = -ship.speed;
         break;
-      case 83:
-        ship.y += ship.speed;
-        if (ship.y > canvas.height) {
-          ship.y = 0 - ship.size;
-        }
+      case 83: //s
+        if (ship.speed < 0) ship.speed = -ship.speed;
         break;
-      case 87:
-        if (ship.y < 0 - ship.size) {
-          ship.y = canvas.height;
-        }
-        ship.y -= ship.speed;
+      case 87: //w
+        if (ship.speed > 0) ship.speed = -ship.speed;
         break;
-      case 90://disparos con la z
+      case 90: //disparos con la z
         createBullet();
         break;
-      case 79://disparos con la o
+      case 79: //disparos con la o
         createBullet();
-        break;
-      case 80://disparos con la p
-        createBullet();
-        break;
     }
+  },
+  setShipPosition: ()=> {
+    if (ship.controlsBool) {
+      ship.y += ship.speed;
+      if (ship.y > canvas.height) {
+        ship.y = 0 - ship.size;
+      }
+      if (ship.y < 0 - ship.size) {
+        ship.y = canvas.height;
+      }
+    }
+    ctx.drawImage(imagesObj.spaceShip[1], ship.x, ship.y, ship.size, ship.size);
   }
 }
 let imagesObj = {
@@ -132,7 +131,7 @@ let randomSongInGameIndex = r(0, soundsObj.cancionesDelJuego.length - 1);
   Funciones
 ************/
 
-function changeSong(){
+function changeSong() {
   soundsObj.cancionesDelJuego[randomSongInGameIndex].pause();
   randomSongInGameIndex++;
   if (randomSongInGameIndex > soundsObj.cancionesDelJuego.length - 1) {
@@ -140,18 +139,27 @@ function changeSong(){
   }
   for (let i of soundsObj.cancionesDelJuego) {
     i.pause();
-}
+  }
   soundsObj.cancionesDelJuego[randomSongInGameIndex].play();
 }
 
-function tellStory() {
+function tellStory(seeIfStart = true) {
   let time = 42;
+  startScreen.style.setProperty('z-index', -1);
+  startScreen.style.setProperty('opacity', 0);
+  onSky.style.setProperty('opacity', 0);
   soundsObj.bienvenida[randomSongIntroIndex].play();
   storyContainer.style.setProperty('animation', `from-bottom-to-top ${time}s linear forwards`);
   wt(() => {
     storyContainer.style.setProperty('animation', '');
-    startGame();
-  }, time * 1000);
+    if (seeIfStart) {
+      startGame();
+    } else {
+      startScreen.style.setProperty('z-index', 10);
+      startScreen.style.setProperty('opacity', 1);
+      onSky.style.setProperty('opacity', 1);
+    }
+  }, time * 1000 + 1000);
   theStartInterval = wi(() => {
     startCounter.innerHTML = time;
     time--;
@@ -169,7 +177,7 @@ function genImages() {
   let imgCounter = 0;
   wi(() => {
     imgCounter++;
-    if(imgCounter === 3){
+    if (imgCounter === 3) {
       imgCounter = 0;
     }
     imagesObj.spaceShip[1].src = `img/007-spaceship-1-${imgCounter}.svg`;
@@ -184,7 +192,7 @@ function genImages() {
 }
 
 function drawPlanet() {
-  ctx.drawImage(imagesObj.venus, canvas.height - (canvas.height + canvas.height) / 1.15, 0, canvas.height, canvas.height);
+  ctx.drawImage(imagesObj.venus, planetX, 0, canvas.height, canvas.height);
 }
 
 function createBullet() {
@@ -206,6 +214,20 @@ function drawBullets() {
   }
 }
 
+function moveSky() {
+  planetX-=Math.abs(ship.speed*1.5);
+  for(let i of document.querySelector('.sky').children){
+    let left = i.getAttribute('left') - 0.25;
+    if(left < 0){
+      left = 100;
+      sp(i, 'top', r(0, 99) + '%');
+    } 
+    sp(i, 'left', left + '%');
+    sa(i, 'left', left);
+  }
+}
+
+wi(moveSky, 100)//quitar
 /***************
   Local Storage
 ****************/
