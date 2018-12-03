@@ -21,10 +21,10 @@ let asteroidsArray = [];
   Objetos
 ************/
 let ship = {
-  size: 50,
+  size: 65,
   y: undefined,
   x: 300,
-  speed: 7,
+  speed: 5,
   controlsBool: false,
   controls: (e) => {
     ship.controlsBool = true;
