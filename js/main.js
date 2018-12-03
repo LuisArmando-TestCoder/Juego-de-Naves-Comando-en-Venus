@@ -10,6 +10,8 @@ function draw() {
     drawPlanet();
     ship.setShipPosition();
     if (bulletArray.length > 0) drawBullets();
+    if (enemiesArray.length > 0) drawEnemies();
+    if (asteroidsArray.length > 0) drawAsteroids();
     window.requestAnimationFrame(draw);
 }
 

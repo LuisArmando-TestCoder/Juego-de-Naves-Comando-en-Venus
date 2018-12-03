@@ -25,6 +25,16 @@ function startGame() {
         });
     }
     nextSongButton.addEventListener('click', changeSong);
+    wt(()=>{
+        wi(()=>{
+            createEnemy();
+        }, 6500);
+    }, 2000);
+    wt(()=>{
+        wi(()=>{
+            createAsteroid();
+        }, 1000);
+    }, 12000)
 }
 
 function startStoryTelling() {

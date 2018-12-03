@@ -4,7 +4,8 @@
 let storyTellingBool;
 let ctx = canvas.getContext('2d');
 let planetSize = 550;
-let planetX = canvas.height - (canvas.height + canvas.height);
+let planetX = canvas.width + canvas.width * 2.25;
+let xMovement = planetX;
 let theStartInterval; // to set a counter on corner
 let onSky;
 let bulletSpeed = 10;
@@ -13,6 +14,8 @@ let bulletSpeed = 10;
   Cadenas
 ************/
 let bulletArray = [];
+let enemiesArray = [];
+let asteroidsArray = [];
 
 /***********
   Objetos
