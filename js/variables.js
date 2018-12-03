@@ -4,7 +4,7 @@
 let storyTellingBool;
 let ctx = canvas.getContext('2d');
 let planetSize = 550;
-let planetX = canvas.height - (canvas.height + canvas.height) / 1.15;
+let planetX = canvas.height - (canvas.height + canvas.height);
 let theStartInterval; // to set a counter on corner
 let onSky;
 let bulletSpeed = 10;
@@ -227,7 +227,6 @@ function moveSky() {
   }
 }
 
-wi(moveSky, 100)//quitar
 /***************
   Local Storage
 ****************/
