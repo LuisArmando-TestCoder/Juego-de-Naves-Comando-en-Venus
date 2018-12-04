@@ -1,14 +1,12 @@
 @keyframes jump {
   80% {
     top: -5px; } }
-
 @keyframes from-bottom-to-top {
   95% {
     opacity: 1; }
   100% {
     opacity: 0;
     top: -230vh; } }
-
 @keyframes pass-through {
   0% {
     bottom: 100%;
@@ -20,15 +18,12 @@
   100% {
     bottom: 0;
     top: 100%; } }
-
 @keyframes rotating-sky {
   100% {
     transform: rotate(360deg); } }
-
 @keyframes opac {
   50% {
     opacity: 0; } }
-
 body {
   background: #000;
   margin: 0;
@@ -73,8 +68,7 @@ p {
   right: 0;
   margin: auto;
   width: 100vw;
-  height: 100vh;
-  animation: rotating-sky 702s linear infinite; }
+  height: 100vh; }
   .sky .star {
     position: absolute; }
 
@@ -105,6 +99,24 @@ p {
   top: 5vh;
   left: 5vw; }
 
+#seeTheStory {
+  position: relative;
+  border: 0;
+  width: 100%;
+  top: 20vh;
+  text-shadow: 0 0.289vh #0d00a5;
+  background: transparent;
+  outline: none;
+  font-family: "Rubik Mono One";
+  color: #fecf01;
+  font-size: 14px; }
+  #seeTheStory:hover {
+    cursor: pointer; }
+  #seeTheStory:active {
+    text-shadow: 0 0 #0d00a5;
+    box-shadow: 0 0 #0d00a5;
+    top: 20.289vh; }
+
 #nextSongButton {
   position: fixed;
   right: 5vw;
@@ -125,6 +137,7 @@ p {
     top: 5.289vh; }
 
 #startScreen {
+  position: relative;
   transition: 2s;
   opacity: 1;
   text-align: center;
@@ -176,3 +189,5 @@ p {
   height: 150vh;
   overflow: hidden;
   transform: rotateX(5deg); }
+
+/*# sourceMappingURL=style.css.map */

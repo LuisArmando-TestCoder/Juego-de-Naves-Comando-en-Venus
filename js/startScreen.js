@@ -1,4 +1,6 @@
 function startGame() {
+    wi(moveSky, 100);
+    onSky.style.setProperty('opacity', 0);
     nextSongButton.style.setProperty('display', 'inline');
     canvas.style.setProperty('z-index', `9001`);
     canvas.width = window.innerWidth;
@@ -23,10 +25,19 @@ function startGame() {
         });
     }
     nextSongButton.addEventListener('click', changeSong);
+    wt(()=>{
+        wi(()=>{
+            createEnemy();
+        }, 6500);
+    }, 2000);
+    wt(()=>{
+        wi(()=>{
+            createAsteroid();
+        }, 3250);
+    }, 12000)
 }
 
 function startStoryTelling() {
-    onSky.style.setProperty('opacity', `0`);
     if (storyTellingBool) {
         tellStory();
         storyTellingBool = false;
@@ -34,12 +45,6 @@ function startStoryTelling() {
         startGame();
     }
 }
-startButton.addEventListener('click', () => {
-    canvas.className = '';
-    startScreen.style.setProperty('z-index', -1);
-    startScreen.style.setProperty('opacity', 0);
-    startStoryTelling();
-});
 
 function genSky(selector, manyStars) {
     let star = '<div class="star"></div>';
@@ -49,8 +54,9 @@ function genSky(selector, manyStars) {
 
     for (let i = 0; i < manyStars; i++) {
         ih(onSky, star);
-        sp(onSky.lastChild, 'top', r(0, 99) + '.' + r(0, 100) + '%');
-        sp(onSky.lastChild, 'left', r(0, 99) + '.' + r(0, 100) + '%');
+        sp(onSky.lastChild, 'top', r(0, 99) + '%');
+        sp(onSky.lastChild, 'left', r(0, 99) + '%');
+        sa(onSky.lastChild, 'left', r(0, 99));
         sp(onSky.lastChild, 'background', colorArr[r(0, colorArr.length)]);
         sp(onSky.lastChild, 'animation', 'opac 2.' + r(1, 9) + 's infinite');
         sp(onSky.lastChild, 'animation-delay', r(0, 1) + '.' + r(0, 9) + 's');
@@ -68,7 +74,19 @@ function genParticles(selector, manyLines) {
         sp(onSky.lastChild, 'animation-delay', r(0, 9) + '.' + r(0, 9) + 's');
     }
 }
+
+
 genSky('.sky', 180);
 genParticles('.particles', 20);
-
 nextSongButton.style.setProperty('display', 'none');
+
+startButton.addEventListener('click', () => {
+    canvas.className = '';
+    startScreen.style.setProperty('z-index', -1);
+    startScreen.style.setProperty('opacity', 0);
+    startStoryTelling();
+});
+
+seeTheStory.addEventListener('click', ()=>{
+    tellStory(false);
+});

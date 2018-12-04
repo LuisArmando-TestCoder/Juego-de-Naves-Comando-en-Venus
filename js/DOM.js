@@ -1,5 +1,6 @@
 const startButton = gi('start'),
-    startScreen = gi('startScreen'),
+    startScreen = gi('startScreen')
+    seeTheStory = gi('seeTheStory'),
     startCounter = gi('startCounter'),
     nextSongButton = gi('nextSongButton');
 let canvas = qs('canvas');
