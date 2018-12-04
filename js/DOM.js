@@ -1,5 +1,7 @@
 const life = gi('life'),
     startButton = gi('start'),
+    bestScore = gi('bestScore'),
+    lastScore = gi('lastScore'),
     startScreen = gi('startScreen')
     seeTheStory = gi('seeTheStory'),
     startCounter = gi('startCounter'),

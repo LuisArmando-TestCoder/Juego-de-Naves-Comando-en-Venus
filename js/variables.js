@@ -45,7 +45,10 @@ let ship = {
       case 87: //w
         ship.controlsBool = true;
         if (ship.speed > 0) ship.speed = -ship.speed;
-        break;
+    }
+  },
+  controlsGun: (e) => {
+    switch (e.keyCode) {
       case 90: //disparos con la z
         createBullet();
         break;

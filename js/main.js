@@ -20,4 +20,5 @@ function draw() {
 
 window.addEventListener('keydown', e => {
     ship.controls(e);
+    ship.controlsGun(e);
 });

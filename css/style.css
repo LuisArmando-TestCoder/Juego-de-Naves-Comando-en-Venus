@@ -1,14 +1,12 @@
 @keyframes jump {
   80% {
     top: -5px; } }
-
 @keyframes from-bottom-to-top {
   95% {
     opacity: 1; }
   100% {
     opacity: 0;
     top: -230vh; } }
-
 @keyframes pass-through {
   0% {
     bottom: 100%;
@@ -20,15 +18,12 @@
   100% {
     bottom: 0;
     top: 100%; } }
-
 @keyframes rotating-sky {
   100% {
     transform: rotate(360deg); } }
-
 @keyframes opac {
   50% {
     opacity: 0; } }
-
 body {
   background: #000;
   margin: 0;
@@ -115,22 +110,71 @@ p {
   display: block; }
 
 #seeTheStory {
-  position: relative;
-  border: 0;
-  width: 100%;
-  top: 20vh;
+  position: absolute;
+  padding: 2vh 2vh;
+  border: 0.75vh solid #fecf01;
+  text-align: center;
+  display: block;
+  top: 42.5vh;
   text-shadow: 0 0.289vh #0d00a5;
   background: transparent;
   outline: none;
   font-family: "Rubik Mono One";
   color: #fecf01;
-  font-size: 14px; }
+  margin: auto;
+  left: 0;
+  right: 0;
+  width: 36vh;
+  font-size: 14px;
+  box-shadow: 0 0.289vh 0 0 #0d00a5; }
   #seeTheStory:hover {
     cursor: pointer; }
   #seeTheStory:active {
     text-shadow: 0 0 #0d00a5;
     box-shadow: 0 0 #0d00a5;
-    top: 20.289vh; }
+    top: 42.789vh; }
+
+#lastScore {
+  position: fixed;
+  border: 0;
+  width: 100%;
+  display: block;
+  top: 95vh;
+  text-shadow: 0 0.289vh #0d00a5;
+  background: transparent;
+  outline: none;
+  font-family: "Rubik Mono One";
+  color: #fecf01;
+  font-size: 14px;
+  text-align: left;
+  left: 5vh; }
+  #lastScore:hover {
+    cursor: pointer; }
+  #lastScore:active {
+    text-shadow: 0 0 #0d00a5;
+    box-shadow: 0 0 #0d00a5;
+    top: 95.289vh; }
+
+#bestScore {
+  position: fixed;
+  border: 0;
+  width: 100%;
+  display: block;
+  top: 90vh;
+  text-shadow: 0 0.289vh #0d00a5;
+  background: transparent;
+  outline: none;
+  font-family: "Rubik Mono One";
+  color: #fecf01;
+  font-size: 14px;
+  text-align: left;
+  left: 5vh; }
+  #bestScore:hover {
+    cursor: pointer; }
+  #bestScore:active {
+    text-shadow: 0 0 #0d00a5;
+    box-shadow: 0 0 #0d00a5;
+    top: 90.289vh; }
 
 #nextSongButton {
   position: fixed;
@@ -203,3 +247,5 @@ p {
   height: 150vh;
   overflow: hidden;
   transform: rotateX(5deg); }
+
+/*# sourceMappingURL=style.css.map */

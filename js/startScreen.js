@@ -1,3 +1,7 @@
+
+bestScore.innerHTML = `Mejor puntuación: ${localStorage.getItem('bestScore')}`;
+lastScore.innerHTML = `Puntuación más reciente: ${localStorage.getItem('lastScore')}`;
+
 // localStorage.setItem('TellingTheBool', false);
 
 if (localStorage.getItem('TellingTheBool') === 'true') {
