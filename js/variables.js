@@ -8,7 +8,8 @@ let planetX = canvas.width + canvas.width * 2.25;
 let xMovement = planetX;
 let theStartInterval; // to set a counter on corner
 let onSky;
-let bulletSpeed = 10;
+let bulletSpeed = 40;
+let globalPoints = 0;
 
 /***********
   Cadenas
@@ -24,21 +25,24 @@ let ship = {
   size: 65,
   y: undefined,
   x: 300,
-  speed: 8,
+  speed: 10,
   controlsBool: false,
   controls: (e) => {
-    ship.controlsBool = true;
     switch (e.keyCode) {
       case 40: //down
+        ship.controlsBool = true;
         if (ship.speed < 0) ship.speed = -ship.speed;
         break;
       case 38: //up
+        ship.controlsBool = true;
         if (ship.speed > 0) ship.speed = -ship.speed;
         break;
       case 83: //s
+        ship.controlsBool = true;
         if (ship.speed < 0) ship.speed = -ship.speed;
         break;
       case 87: //w
+        ship.controlsBool = true;
         if (ship.speed > 0) ship.speed = -ship.speed;
         break;
       case 90: //disparos con la z

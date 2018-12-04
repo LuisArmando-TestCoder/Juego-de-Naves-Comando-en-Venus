@@ -63,9 +63,9 @@ function drawPlanet() {
 }
 function createBullet() {
   bulletArray.push({
-    x: ship.x + ship.size,
+    x: ship.x + ship.size + 5,
     y: ship.y + ship.size / 2,
-    r: 3
+    r: 5
   });
 }
 function drawBullets() {
@@ -86,7 +86,8 @@ function createEnemy(){
     w: 60,
     h: 50,
     img: imagesObj.ufo[r(0, imagesObj.ufo.length - 1)],
-    speed: r(1, 4)
+    speed: r(1, 4),
+    dmg: 0
   });
 }
 function drawEnemies(){
@@ -103,7 +104,7 @@ function createAsteroid(){
     w: 60,
     h: 50,
     img: imagesObj.asteroids[r(0, imagesObj.asteroids.length - 1)],
-    speed: r(5, 8)
+    speed: r(10, 28)
   });
 }
 function drawAsteroids(){
@@ -116,7 +117,7 @@ function drawAsteroids(){
 }
 
 function moveSky() {
-  xMovement -= 1;
+  xMovement -= 2;
   for (let i of document.querySelector('.sky').children) {
     let left = i.getAttribute('left') - 0.05;
     if (left < 0) {
@@ -126,4 +127,42 @@ function moveSky() {
     sp(i, 'left', left + '%');
     sa(i, 'left', left);
   }
+}
+
+function watchBulletAsteroidCollision(){
+  for(let i of bulletArray){
+    for(let a of asteroidsArray){
+      //MY OWN COLLISIONS BABY!!!!! FINALLY I DID IT!!!!
+      if(!(a.x - (i.x + i.r) >= 0 ||
+        (i.x + i.r * -1) - (a.x + a.w) >= 0 ||
+        a.y - (i.y + i.r) >= 0 ||
+        (i.y + i.r * -1) - (a.y + a.h) >= 0)){
+          bulletArray.splice(bulletArray.indexOf(i), 1);
+      }
+    }
+  }
+}
+function watchBulletEnemyCollision(){
+  for(let i of bulletArray){
+    for(let a of enemiesArray){
+      //MY OWN COLLISIONS BABY!!!!! FINALLY I DID IT!!!!
+      if(!(a.x - (i.x + i.r) >= 0 ||
+        (i.x + i.r * -1) - (a.x + a.w) >= 0 ||
+        a.y - (i.y + i.r) >= 0 ||
+        (i.y + i.r * -1) - (a.y + a.h) >= 0)){
+          if(a.dmg < 1){
+            bulletArray.splice(bulletArray.indexOf(i), 1);
+            a.dmg++;
+            console.log(a.dmg);
+          }else{
+            enemiesArray.splice(enemiesArray.indexOf(a), 1);
+            getPoint();
+          }
+      }
+    }
+  }
+}
+function getPoint(){
+  globalPoints++;
+  startCounter.innerHTML = globalPoints;
 }

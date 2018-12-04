@@ -1,5 +1,5 @@
 function startGame() {
-    wi(moveSky, 100);
+    wi(moveSky, 50);
     onSky.style.setProperty('opacity', 0);
     nextSongButton.style.setProperty('display', 'inline');
     canvas.style.setProperty('z-index', `9001`);
