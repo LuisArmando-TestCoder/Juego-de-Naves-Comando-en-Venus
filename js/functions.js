@@ -86,7 +86,7 @@ function createEnemy(){
     w: 60,
     h: 50,
     img: imagesObj.ufo[r(0, imagesObj.ufo.length - 1)],
-    speed: r(1, 4),
+    speed: r(4, 8),
     dmg: 0
   });
 }
@@ -94,7 +94,10 @@ function drawEnemies(){
   for (let i of enemiesArray) {
     ctx.drawImage(i.img, i.x, i.y, i.w, i.h);
     i.x -= i.speed;
-    if (i.x + i.w < 0) enemiesArray.splice(enemiesArray.indexOf(i), 1);
+    if (i.x + i.w < 0){
+      lessPoint();
+      enemiesArray.splice(enemiesArray.indexOf(i), 1);
+    } 
   }
 }
 function createAsteroid(){
@@ -164,5 +167,10 @@ function watchBulletEnemyCollision(){
 }
 function getPoint(){
   globalPoints++;
+  startCounter.innerHTML = globalPoints;
+}
+
+function lessPoint(){
+  globalPoints--;
   startCounter.innerHTML = globalPoints;
 }

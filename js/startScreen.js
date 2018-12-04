@@ -28,12 +28,12 @@ function startGame() {
     wt(()=>{
         wi(()=>{
             createEnemy();
-        }, 6500);
-    }, 2000);
+        }, 2350);
+    }, 1000);
     wt(()=>{
         wi(()=>{
             createAsteroid();
-        }, 3250);
+        }, 1000);
     }, 12000)
 }
 
