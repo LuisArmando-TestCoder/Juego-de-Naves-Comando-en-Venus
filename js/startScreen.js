@@ -1,3 +1,12 @@
+// localStorage.setItem('TellingTheBool', false);
+
+if (localStorage.getItem('TellingTheBool') === 'true') {
+    storyTellingBool = false;
+} else {
+    storyTellingBool = true;
+    localStorage.setItem('TellingTheBool', true);
+}
+
 function startGame() {
     life.style.setProperty('opacity', 1);
     wi(moveSky, 50);
@@ -12,7 +21,7 @@ function startGame() {
     });
     createObjects();
     soundsObj.bienvenida[randomSongIntroIndex].pause();
-    soundsObj.cancionesDelJuego[randomSongInGameIndex].play();//se detiene una y empieza otra canción
+    soundsObj.cancionesDelJuego[randomSongInGameIndex].play(); //se detiene una y empieza otra canción
     for (let i of soundsObj.cancionesDelJuego) {
         i.addEventListener('ended', () => {
             randomSongInGameIndex++;
@@ -26,13 +35,13 @@ function startGame() {
         });
     }
     nextSongButton.addEventListener('click', changeSong);
-    wt(()=>{
-        wi(()=>{
+    wt(() => {
+        wi(() => {
             createEnemy();
         }, 2350);
     }, 1000);
-    wt(()=>{
-        wi(()=>{
+    wt(() => {
+        wi(() => {
             createAsteroid();
         }, 1000);
     }, 12000)
@@ -66,6 +75,7 @@ function genSky(selector, manyStars) {
         sp(onSky.lastChild, 'height', size + 'px');
     }
 }
+
 function genParticles(selector, manyLines) {
     let line = '<div class="line"></div>';
     onSky = qs(selector);
@@ -88,6 +98,6 @@ startButton.addEventListener('click', () => {
     startStoryTelling();
 });
 
-seeTheStory.addEventListener('click', ()=>{
+seeTheStory.addEventListener('click', () => {
     tellStory(false);
 });

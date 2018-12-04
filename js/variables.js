@@ -22,11 +22,11 @@ let asteroidsArray = [];
   Objetos
 ************/
 let ship = {
-  life: 3,
+  life: 21,
   size: 65,
   y: undefined,
   x: 300,
-  speed: 10,
+  speed: 7,
   controlsBool: false,
   controls: (e) => {
     switch (e.keyCode) {
@@ -136,15 +136,3 @@ let randomSongIntroIndex = r(0, soundsObj.bienvenida.length - 1);
 let randomSongInGameIndex = r(0, soundsObj.cancionesDelJuego.length - 1);
 
 
-/***************
-  Local Storage
-****************/
-
-// localStorage.setItem('TellingTheBool', false);
-
-if (localStorage.getItem('TellingTheBool') === 'true') {
-  storyTellingBool = false;
-} else {
-  storyTellingBool = true;
-  localStorage.setItem('TellingTheBool', true);
-}

@@ -215,4 +215,5 @@ function gameOver(){
   if(localStorage.getItem('bestScore') < globalPoints){
     localStorage.setItem('bestScore', globalPoints);
   }
+  location.replace('index.html');
 }
