@@ -14,6 +14,7 @@ function draw() {
     if (asteroidsArray.length > 0) drawAsteroids();
     watchBulletAsteroidCollision();
     watchBulletEnemyCollision();
+    watchThingsSpaceShipCollision();
     window.requestAnimationFrame(draw);
 }
 

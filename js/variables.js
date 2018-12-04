@@ -22,6 +22,7 @@ let asteroidsArray = [];
   Objetos
 ************/
 let ship = {
+  life: 3,
   size: 65,
   y: undefined,
   x: 300,

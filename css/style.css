@@ -1,12 +1,14 @@
 @keyframes jump {
   80% {
     top: -5px; } }
+
 @keyframes from-bottom-to-top {
   95% {
     opacity: 1; }
   100% {
     opacity: 0;
     top: -230vh; } }
+
 @keyframes pass-through {
   0% {
     bottom: 100%;
@@ -18,12 +20,15 @@
   100% {
     bottom: 0;
     top: 100%; } }
+
 @keyframes rotating-sky {
   100% {
     transform: rotate(360deg); } }
+
 @keyframes opac {
   50% {
     opacity: 0; } }
+
 body {
   background: #000;
   margin: 0;
@@ -99,6 +104,16 @@ p {
   top: 5vh;
   left: 5vw; }
 
+#life {
+  opacity: 0;
+  transition: 2s;
+  position: fixed;
+  top: 5vh;
+  left: 0;
+  right: 0;
+  text-align: center;
+  display: block; }
+
 #seeTheStory {
   position: relative;
   border: 0;
@@ -120,10 +135,9 @@ p {
 #nextSongButton {
   position: fixed;
   right: 5vw;
-  top: 5vh;
   border: 0;
   font-size: 30px;
-  top: 5vh;
+  top: 4vh;
   text-shadow: 0 0.289vh #0d00a5;
   background: transparent;
   outline: none;
@@ -134,7 +148,7 @@ p {
   #nextSongButton:active {
     text-shadow: 0 0 #0d00a5;
     box-shadow: 0 0 #0d00a5;
-    top: 5.289vh; }
+    top: 4.289vh; }
 
 #startScreen {
   position: relative;
@@ -189,5 +203,3 @@ p {
   height: 150vh;
   overflow: hidden;
   transform: rotateX(5deg); }
-
-/*# sourceMappingURL=style.css.map */

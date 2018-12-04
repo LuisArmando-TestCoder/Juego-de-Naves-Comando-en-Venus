@@ -4,6 +4,17 @@
   left: 5vw;
 }
 
+#life{
+  opacity: 0;
+  transition: 2s;
+  position: fixed;
+  top: 5vh;
+  left: 0;
+  right: 0;
+  text-align: center;
+  display: block;
+}
+
 #seeTheStory{
   position: relative;
   border: 0;
@@ -15,10 +26,9 @@
 #nextSongButton{
   position: fixed;
   right: 5vw;
-  top: 5vh;
   border: 0;
   font-size: 30px;
-  @include button(5vh);
+  @include button(4vh);
 }
 
 #startScreen {

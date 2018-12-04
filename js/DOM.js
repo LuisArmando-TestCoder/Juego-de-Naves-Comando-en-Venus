@@ -1,4 +1,5 @@
-const startButton = gi('start'),
+const life = gi('life'),
+    startButton = gi('start'),
     startScreen = gi('startScreen')
     seeTheStory = gi('seeTheStory'),
     startCounter = gi('startCounter'),

@@ -79,7 +79,7 @@ function drawBullets() {
   }
 }
 
-function createEnemy(){
+function createEnemy() {
   enemiesArray.push({
     x: canvas.width,
     y: r(0, canvas.height - 60),
@@ -90,17 +90,17 @@ function createEnemy(){
     dmg: 0
   });
 }
-function drawEnemies(){
+function drawEnemies() {
   for (let i of enemiesArray) {
     ctx.drawImage(i.img, i.x, i.y, i.w, i.h);
     i.x -= i.speed;
-    if (i.x + i.w < 0){
+    if (i.x + i.w < 0) {
       lessPoint();
       enemiesArray.splice(enemiesArray.indexOf(i), 1);
-    } 
+    }
   }
 }
-function createAsteroid(){
+function createAsteroid() {
   asteroidsArray.push({
     x: canvas.width,
     y: r(0, canvas.height - 60),
@@ -110,13 +110,13 @@ function createAsteroid(){
     speed: r(10, 28)
   });
 }
-function drawAsteroids(){
+function drawAsteroids() {
   for (let i of asteroidsArray) {
     ctx.drawImage(i.img, i.x, i.y, i.w, i.h);
     i.x -= i.speed;
     if (i.x + i.w < 0) asteroidsArray.splice(asteroidsArray.indexOf(i), 1);
   }
-  
+
 }
 
 function moveSky() {
@@ -132,45 +132,87 @@ function moveSky() {
   }
 }
 
-function watchBulletAsteroidCollision(){
-  for(let i of bulletArray){
-    for(let a of asteroidsArray){
+function watchBulletAsteroidCollision() {
+  for (let i of bulletArray) {
+    for (let a of asteroidsArray) {
       //MY OWN COLLISIONS BABY!!!!! FINALLY I DID IT!!!!
-      if(!(a.x - (i.x + i.r) >= 0 ||
+      if (!(a.x - (i.x + i.r) >= 0 ||
         (i.x + i.r * -1) - (a.x + a.w) >= 0 ||
         a.y - (i.y + i.r) >= 0 ||
-        (i.y + i.r * -1) - (a.y + a.h) >= 0)){
+        (i.y + i.r * -1) - (a.y + a.h) >= 0)) {
+        bulletArray.splice(bulletArray.indexOf(i), 1);
+      }
+    }
+  }
+}
+function watchBulletEnemyCollision() {
+  for (let i of bulletArray) {
+    for (let a of enemiesArray) {
+      //MY OWN COLLISIONS BABY!!!!! FINALLY I DID IT!!!!
+      if (!(a.x - (i.x + i.r) >= 0 ||
+        (i.x + i.r * -1) - (a.x + a.w) >= 0 ||
+        a.y - (i.y + i.r) >= 0 ||
+        (i.y + i.r * -1) - (a.y + a.h) >= 0)) {
+        if (a.dmg < 1) {
           bulletArray.splice(bulletArray.indexOf(i), 1);
+          a.dmg++;
+          console.log(a.dmg);
+        } else {
+          enemiesArray.splice(enemiesArray.indexOf(a), 1);
+          getPoint();
+        }
       }
     }
   }
 }
-function watchBulletEnemyCollision(){
-  for(let i of bulletArray){
-    for(let a of enemiesArray){
-      //MY OWN COLLISIONS BABY!!!!! FINALLY I DID IT!!!!
-      if(!(a.x - (i.x + i.r) >= 0 ||
-        (i.x + i.r * -1) - (a.x + a.w) >= 0 ||
-        a.y - (i.y + i.r) >= 0 ||
-        (i.y + i.r * -1) - (a.y + a.h) >= 0)){
-          if(a.dmg < 1){
-            bulletArray.splice(bulletArray.indexOf(i), 1);
-            a.dmg++;
-            console.log(a.dmg);
-          }else{
-            enemiesArray.splice(enemiesArray.indexOf(a), 1);
-            getPoint();
-          }
+function watchThingsSpaceShipCollision() {
+  for (let a of enemiesArray) {
+    //MY OWN COLLISIONS BABY!!!!! FINALLY I DID IT!!!!
+    if (!(a.x - (ship.x + ship.size / 2) >= 0 ||
+      (ship.x + ship.size / 2 * -1) - (a.x + a.w) >= 0 ||
+      a.y - (ship.y + ship.size / 2) >= 0 ||
+      (ship.y + ship.size / 2 * -1) - (a.y + a.h) >= 0)) {
+      enemiesArray.splice(enemiesArray.indexOf(a), 1);
+      getPoint();
+      ship.life--;
+      life.innerHTML='';
+      if(ship.life === 0){
+        gameOver();
+      }
+      for(let i = 0; i < ship.life; i++){
+        life.innerHTML+='❤';
+      }
+    }
+  }
+  for (let a of asteroidsArray) {
+    //MY OWN COLLISIONS BABY!!!!! FINALLY I DID IT!!!!
+    if (!(a.x - (ship.x + ship.size / 2) >= 0 ||
+      (ship.x + ship.size / 2 * -1) - (a.x + a.w) >= 0 ||
+      a.y - (ship.y + ship.size / 2) >= 0 ||
+      (ship.y + ship.size / 2 * -1) - (a.y + a.h) >= 0)) {
+      ship.life--;
+      life.innerHTML='';
+      if(ship.life === 0){
+        gameOver();
+      }
+      for(let i = 0; i < ship.life; i++){
+        life.innerHTML+='❤';
       }
     }
   }
 }
-function getPoint(){
+function getPoint() {
   globalPoints++;
   startCounter.innerHTML = globalPoints;
 }
 
-function lessPoint(){
+function lessPoint() {
   globalPoints--;
   startCounter.innerHTML = globalPoints;
+}
+function gameOver(){
+  localStorage.setItem('lastScore', globalPoints);
+  if(localStorage.getItem('bestScore') < globalPoints){
+    localStorage.setItem('bestScore', globalPoints);
+  }
 }
