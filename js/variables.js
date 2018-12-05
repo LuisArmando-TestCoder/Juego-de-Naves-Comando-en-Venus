@@ -8,8 +8,9 @@ let planetX = canvas.width + canvas.width * 2.25;
 let xMovement = planetX;
 let theStartInterval; // to set a counter on corner
 let onSky;
-let bulletSpeed = 40;
+let bulletSpeed = 20;
 let globalPoints = 0;
+let seeIfStart = true;
 
 /***********
   Cadenas
@@ -26,7 +27,7 @@ let ship = {
   size: 65,
   y: undefined,
   x: 300,
-  speed: 7,
+  speed: 5,
   controlsBool: false,
   controls: (e) => {
     switch (e.keyCode) {

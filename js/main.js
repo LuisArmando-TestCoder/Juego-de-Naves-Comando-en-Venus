@@ -1,5 +1,4 @@
 function createObjects() {
-    //Where the real deal starts
     genImages();
     ship.y = canvas.height / 2 - ship.size / 2;
     window.requestAnimationFrame(draw);

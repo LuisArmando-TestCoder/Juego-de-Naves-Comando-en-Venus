@@ -9,3 +9,15 @@
   overflow: hidden;
   transform: rotateX(5deg);
 }
+#skipStory{
+  position: fixed;
+  @include button(90vh);
+  font-size: 16px;
+  padding: 1vh 3vh;
+  box-shadow: 0 $global-measure $button-color;
+  background: transparent;
+  color: $font-color;
+  border: 0.75vh solid $font-color;
+  right: 2.5vw;
+  visibility: hidden;
+}

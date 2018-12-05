@@ -12,22 +12,16 @@ function changeSong() {
   }
   soundsObj.cancionesDelJuego[randomSongInGameIndex].play();
 }
-function tellStory(seeIfStart = true) {
+function tellStory() {
+  skipStory.style.setProperty('visibility', 'visible');
   let time = 42;
   startScreen.style.setProperty('z-index', -1);
   startScreen.style.setProperty('opacity', 0);
   onSky.style.setProperty('opacity', 0);
   soundsObj.bienvenida[randomSongIntroIndex].play();
   storyContainer.style.setProperty('animation', `from-bottom-to-top ${time}s linear forwards`);
-  wt(() => {
-    storyContainer.style.setProperty('animation', '');
-    if (seeIfStart) {
-      startGame();
-    } else {
-      startScreen.style.setProperty('z-index', 10);
-      startScreen.style.setProperty('opacity', 1);
-      onSky.style.setProperty('opacity', 1);
-    }
+  let bigTimer = wt(() => {
+    skipToStart();
   }, time * 1000 + 1000);
   theStartInterval = wi(() => {
     startCounter.innerHTML = time;
@@ -37,6 +31,21 @@ function tellStory(seeIfStart = true) {
       startCounter.innerHTML = '';
     }
   }, 1000);
+}
+function skipToStart(){
+  if (seeIfStart) {
+    startGame();
+  } else {
+    startScreen.style.setProperty('z-index', 10);
+    startScreen.style.setProperty('opacity', 1);
+    onSky.style.setProperty('opacity', 1);
+  }
+  canvas.style.setProperty('display', 'block');
+  skipStory.style.setProperty('visibility', 'hidden');
+  storyContainer.style.setProperty('animation', '');
+  startGame();
+  window.clearInterval(theStartInterval);
+  startCounter.innerHTML = '';
 }
 function genImages() {
   imagesObj.asteroids[0].src = 'img/003-asteroid.svg';

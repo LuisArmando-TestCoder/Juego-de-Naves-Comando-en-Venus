@@ -1,6 +1,7 @@
-
-bestScore.innerHTML = `Mejor puntuación: ${localStorage.getItem('bestScore')}`;
-lastScore.innerHTML = `Puntuación más reciente: ${localStorage.getItem('lastScore')}`;
+if(!(localStorage.getItem('bestScore') == null || localStorage.getItem('lastScore') == null)){
+    bestScore.innerHTML = `Mejor puntuación: ${localStorage.getItem('bestScore')}`;
+    lastScore.innerHTML = `Puntuación más reciente: ${localStorage.getItem('lastScore')}`;
+}
 
 // localStorage.setItem('TellingTheBool', false);
 
@@ -12,6 +13,7 @@ if (localStorage.getItem('TellingTheBool') === 'true') {
 }
 
 function startGame() {
+    skipStory.style.setProperty('visibilty', 'hidden');
     life.style.setProperty('opacity', 1);
     wi(moveSky, 50);
     onSky.style.setProperty('opacity', 0);
@@ -103,5 +105,11 @@ startButton.addEventListener('click', () => {
 });
 
 seeTheStory.addEventListener('click', () => {
-    tellStory(false);
+    seeIfStart = false;
+    tellStory();
 });
+
+skipStory.addEventListener('click', ()=>{
+    seeIfStart = true;
+    skipToStart();
+})

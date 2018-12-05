@@ -16,16 +16,13 @@
 }
 
 #seeTheStory{
-  position: absolute;
+  position: relative;
   padding: 2vh 2vh;
   border: 0.75vh solid $font-color;
   text-align: center;
   display: block;
-  @include button(42.5vh);
+  @include button(20vh);
   margin: auto;
-  left: 0;
-  right: 0;
-  width: 36vh;
   font-size: 14px;
   box-shadow: 0 $global-measure 0 0 $button-color;
 }

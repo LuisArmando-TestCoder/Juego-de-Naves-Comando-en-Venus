@@ -68,7 +68,8 @@ p {
   right: 0;
   margin: auto;
   width: 100vw;
-  height: 100vh; }
+  height: 100vh;
+  animation: rotating-sky 702s linear infinite; }
   .sky .star {
     position: absolute; }
 
@@ -110,21 +111,19 @@ p {
   display: block; }
 
 #seeTheStory {
-  position: absolute;
+  position: relative;
   padding: 2vh 2vh;
   border: 0.75vh solid #fecf01;
   text-align: center;
   display: block;
-  top: 42.5vh;
+  top: 20vh;
   text-shadow: 0 0.289vh #0d00a5;
   background: transparent;
   outline: none;
   font-family: "Rubik Mono One";
   color: #fecf01;
+  border-radius: 10vh;
   margin: auto;
-  left: 0;
-  right: 0;
-  width: 36vh;
   font-size: 14px;
   box-shadow: 0 0.289vh 0 0 #0d00a5; }
   #seeTheStory:hover {
@@ -132,7 +131,7 @@ p {
   #seeTheStory:active {
     text-shadow: 0 0 #0d00a5;
     box-shadow: 0 0 #0d00a5;
-    top: 42.789vh; }
+    top: 20.289vh; }
 
 #lastScore {
   position: fixed;
@@ -145,6 +144,7 @@ p {
   outline: none;
   font-family: "Rubik Mono One";
   color: #fecf01;
+  border-radius: 10vh;
   font-size: 14px;
   text-align: left;
   left: 5vh; }
@@ -166,6 +166,7 @@ p {
   outline: none;
   font-family: "Rubik Mono One";
   color: #fecf01;
+  border-radius: 10vh;
   font-size: 14px;
   text-align: left;
   left: 5vh; }
@@ -186,7 +187,8 @@ p {
   background: transparent;
   outline: none;
   font-family: "Rubik Mono One";
-  color: #fecf01; }
+  color: #fecf01;
+  border-radius: 10vh; }
   #nextSongButton:hover {
     cursor: pointer; }
   #nextSongButton:active {
@@ -217,7 +219,8 @@ p {
     background: transparent;
     outline: none;
     font-family: "Rubik Mono One";
-    color: #fecf01; }
+    color: #fecf01;
+    border-radius: 10vh; }
     #startScreen #start:hover {
       cursor: pointer; }
     #startScreen #start:active {
@@ -247,5 +250,29 @@ p {
   height: 150vh;
   overflow: hidden;
   transform: rotateX(5deg); }
+
+#skipStory {
+  position: fixed;
+  top: 90vh;
+  text-shadow: 0 0.289vh #0d00a5;
+  background: transparent;
+  outline: none;
+  font-family: "Rubik Mono One";
+  color: #fecf01;
+  border-radius: 10vh;
+  font-size: 16px;
+  padding: 1vh 3vh;
+  box-shadow: 0 0.289vh #0d00a5;
+  background: transparent;
+  color: #fecf01;
+  border: 0.75vh solid #fecf01;
+  right: 2.5vw;
+  visibility: hidden; }
+  #skipStory:hover {
+    cursor: pointer; }
+  #skipStory:active {
+    text-shadow: 0 0 #0d00a5;
+    box-shadow: 0 0 #0d00a5;
+    top: 90.289vh; }
 
 /*# sourceMappingURL=style.css.map */
