@@ -1,4 +1,4 @@
-if(!(localStorage.getItem('bestScore') == null || localStorage.getItem('lastScore') == null)){
+if (!(localStorage.getItem('bestScore') == null || localStorage.getItem('lastScore') == null)) {
     bestScore.innerHTML = `Mejor puntuación: ${localStorage.getItem('bestScore')}`;
     lastScore.innerHTML = `Puntuación más reciente: ${localStorage.getItem('lastScore')}`;
 }
@@ -19,11 +19,9 @@ function startGame() {
     onSky.style.setProperty('opacity', 0);
     nextSongButton.style.setProperty('display', 'inline');
     canvas.style.setProperty('z-index', `9001`);
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    setCanvasSize(window.innerWidth, window.innerHeight);
     window.addEventListener('resize', () => {
-        canvas.height = window.innerHeight;
-        canvas.width = window.innerWidth;
+        setCanvasSize(window.innerWidth, window.innerHeight);
     });
     createObjects();
     soundsObj.bienvenida[randomSongIntroIndex].pause();
@@ -109,7 +107,7 @@ seeTheStory.addEventListener('click', () => {
     tellStory();
 });
 
-skipStory.addEventListener('click', ()=>{
+skipStory.addEventListener('click', () => {
     seeIfStart = true;
     skipToStart();
 })

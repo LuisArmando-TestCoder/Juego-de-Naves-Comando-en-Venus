@@ -8,7 +8,7 @@ let planetX = canvas.width + canvas.width * 2.25;
 let xMovement = planetX;
 let theStartInterval; // to set a counter on corner
 let onSky;
-let bulletSpeed = 20;
+let bulletSpeed = 10;
 let globalPoints = 0;
 let seeIfStart = true;
 
@@ -138,5 +138,3 @@ let soundsObj = {
 ************/
 let randomSongIntroIndex = r(0, soundsObj.bienvenida.length - 1);
 let randomSongInGameIndex = r(0, soundsObj.cancionesDelJuego.length - 1);
-
-

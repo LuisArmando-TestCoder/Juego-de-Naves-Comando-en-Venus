@@ -12,6 +12,7 @@ function changeSong() {
   }
   soundsObj.cancionesDelJuego[randomSongInGameIndex].play();
 }
+
 function tellStory() {
   skipStory.style.setProperty('visibility', 'visible');
   let time = 42;
@@ -32,7 +33,8 @@ function tellStory() {
     }
   }, 1000);
 }
-function skipToStart(){
+
+function skipToStart() {
   if (seeIfStart) {
     startGame();
   } else {
@@ -47,6 +49,7 @@ function skipToStart(){
   window.clearInterval(theStartInterval);
   startCounter.innerHTML = '';
 }
+
 function genImages() {
   imagesObj.asteroids[0].src = 'img/003-asteroid.svg';
   imagesObj.asteroids[1].src = 'img/008-asteroid-1.svg';
@@ -67,9 +70,11 @@ function genImages() {
   imagesObj.ufo[3].src = 'img/005-ufo-3.svg';
   imagesObj.venus.src = 'img/009-venus.svg';
 }
+
 function drawPlanet() {
   ctx.drawImage(imagesObj.venus, xMovement, 0, canvas.height, canvas.height);
 }
+
 function createBullet() {
   bulletArray.push({
     x: ship.x + ship.size + 5,
@@ -77,6 +82,8 @@ function createBullet() {
     r: 5
   });
 }
+
+
 function drawBullets() {
   for (let i of bulletArray) {
     ctx.beginPath();
@@ -99,6 +106,7 @@ function createEnemy() {
     dmg: 0
   });
 }
+
 function drawEnemies() {
   for (let i of enemiesArray) {
     ctx.drawImage(i.img, i.x, i.y, i.w, i.h);
@@ -109,6 +117,7 @@ function drawEnemies() {
     }
   }
 }
+
 function createAsteroid() {
   asteroidsArray.push({
     x: canvas.width,
@@ -116,9 +125,10 @@ function createAsteroid() {
     w: 60,
     h: 50,
     img: imagesObj.asteroids[r(0, imagesObj.asteroids.length - 1)],
-    speed: r(10, 28)
+    speed: r(7, 18)
   });
 }
+
 function drawAsteroids() {
   for (let i of asteroidsArray) {
     ctx.drawImage(i.img, i.x, i.y, i.w, i.h);
@@ -146,22 +156,23 @@ function watchBulletAsteroidCollision() {
     for (let a of asteroidsArray) {
       //MY OWN COLLISIONS BABY!!!!! FINALLY I DID IT!!!!
       if (!(a.x - (i.x + i.r) >= 0 ||
-        (i.x + i.r * -1) - (a.x + a.w) >= 0 ||
-        a.y - (i.y + i.r) >= 0 ||
-        (i.y + i.r * -1) - (a.y + a.h) >= 0)) {
+          (i.x + i.r * -1) - (a.x + a.w) >= 0 ||
+          a.y - (i.y + i.r) >= 0 ||
+          (i.y + i.r * -1) - (a.y + a.h) >= 0)) {
         bulletArray.splice(bulletArray.indexOf(i), 1);
       }
     }
   }
 }
+
 function watchBulletEnemyCollision() {
   for (let i of bulletArray) {
     for (let a of enemiesArray) {
       //MY OWN COLLISIONS BABY!!!!! FINALLY I DID IT!!!!
       if (!(a.x - (i.x + i.r) >= 0 ||
-        (i.x + i.r * -1) - (a.x + a.w) >= 0 ||
-        a.y - (i.y + i.r) >= 0 ||
-        (i.y + i.r * -1) - (a.y + a.h) >= 0)) {
+          (i.x + i.r * -1) - (a.x + a.w) >= 0 ||
+          a.y - (i.y + i.r) >= 0 ||
+          (i.y + i.r * -1) - (a.y + a.h) >= 0)) {
         if (a.dmg < 1) {
           bulletArray.splice(bulletArray.indexOf(i), 1);
           a.dmg++;
@@ -174,42 +185,44 @@ function watchBulletEnemyCollision() {
     }
   }
 }
+
 function watchThingsSpaceShipCollision() {
   for (let a of enemiesArray) {
     //MY OWN COLLISIONS BABY!!!!! FINALLY I DID IT!!!!
     if (!(a.x - (ship.x + ship.size / 2) >= 0 ||
-      (ship.x + ship.size / 2 * -1) - (a.x + a.w) >= 0 ||
-      a.y - (ship.y + ship.size / 2) >= 0 ||
-      (ship.y + ship.size / 2 * -1) - (a.y + a.h) >= 0)) {
+        (ship.x + ship.size / 2 * -1) - (a.x + a.w) >= 0 ||
+        a.y - (ship.y + ship.size / 2) >= 0 ||
+        (ship.y + ship.size / 2 * -1) - (a.y + a.h) >= 0)) {
       enemiesArray.splice(enemiesArray.indexOf(a), 1);
       getPoint();
       ship.life--;
-      life.innerHTML='';
-      if(ship.life === 0){
+      life.innerHTML = '';
+      if (ship.life === 0) {
         gameOver();
       }
-      for(let i = 0; i < ship.life; i++){
-        life.innerHTML+='❤';
+      for (let i = 0; i < ship.life; i++) {
+        life.innerHTML += '❤';
       }
     }
   }
   for (let a of asteroidsArray) {
     //MY OWN COLLISIONS BABY!!!!! FINALLY I DID IT!!!!
     if (!(a.x - (ship.x + ship.size / 2) >= 0 ||
-      (ship.x + ship.size / 2 * -1) - (a.x + a.w) >= 0 ||
-      a.y - (ship.y + ship.size / 2) >= 0 ||
-      (ship.y + ship.size / 2 * -1) - (a.y + a.h) >= 0)) {
+        (ship.x + ship.size / 2 * -1) - (a.x + a.w) >= 0 ||
+        a.y - (ship.y + ship.size / 2) >= 0 ||
+        (ship.y + ship.size / 2 * -1) - (a.y + a.h) >= 0)) {
       ship.life--;
-      life.innerHTML='';
-      if(ship.life === 0){
+      life.innerHTML = '';
+      if (ship.life === 0) {
         gameOver();
       }
-      for(let i = 0; i < ship.life; i++){
-        life.innerHTML+='❤';
+      for (let i = 0; i < ship.life; i++) {
+        life.innerHTML += '❤';
       }
     }
   }
 }
+
 function getPoint() {
   globalPoints++;
   startCounter.innerHTML = globalPoints;
@@ -219,10 +232,16 @@ function lessPoint() {
   globalPoints--;
   startCounter.innerHTML = globalPoints;
 }
-function gameOver(){
+
+function gameOver() {
   localStorage.setItem('lastScore', globalPoints);
-  if(localStorage.getItem('bestScore') < globalPoints){
+  if (localStorage.getItem('bestScore') < globalPoints) {
     localStorage.setItem('bestScore', globalPoints);
   }
   location.replace('index.html');
+}
+
+function setCanvasSize(w, h) {
+  canvas.width = w;
+  canvas.height = h;
 }
