@@ -19,9 +19,9 @@ function startGame() {
     onSky.style.setProperty('opacity', 0);
     nextSongButton.style.setProperty('display', 'inline');
     canvas.style.setProperty('z-index', `9001`);
-    setCanvasSize(window.innerWidth, window.innerHeight);
+    setCanvasSize(window.innerWidth, 400);
     window.addEventListener('resize', () => {
-        setCanvasSize(window.innerWidth, window.innerHeight);
+        setCanvasSize(window.innerWidth, 400);
     });
     createObjects();
     soundsObj.bienvenida[randomSongIntroIndex].pause();
@@ -47,7 +47,7 @@ function startGame() {
     wt(() => {
         wi(() => {
             createAsteroid();
-        }, 1000);
+        }, 3000);
     }, 12000)
 }
 

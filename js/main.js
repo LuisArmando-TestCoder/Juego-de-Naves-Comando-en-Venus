@@ -19,5 +19,7 @@ function draw() {
 
 window.addEventListener('keydown', e => {
     ship.controls(e);
+});
+window.addEventListener('keydown', e => {
     ship.controlsGun(e);
 });

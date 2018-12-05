@@ -27,7 +27,7 @@ let ship = {
   size: 65,
   y: undefined,
   x: 300,
-  speed: 5,
+  speed: 10,
   controlsBool: false,
   controls: (e) => {
     switch (e.keyCode) {

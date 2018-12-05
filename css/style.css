@@ -33,7 +33,11 @@ body {
   font-family: "Rubik Mono One"; }
 
 canvas {
-  z-index: -9001; }
+  z-index: -9001;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0; }
 
 .notDisplay {
   display: none; }
