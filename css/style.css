@@ -1,14 +1,12 @@
 @keyframes jump {
   80% {
     top: -5px; } }
-
 @keyframes from-bottom-to-top {
   95% {
     opacity: 1; }
   100% {
     opacity: 0;
     top: -230vh; } }
-
 @keyframes pass-through {
   0% {
     bottom: 100%;
@@ -20,15 +18,12 @@
   100% {
     bottom: 0;
     top: 100%; } }
-
 @keyframes rotating-sky {
   100% {
     transform: rotate(360deg); } }
-
 @keyframes opac {
   50% {
     opacity: 0; } }
-
 body {
   background: #000;
   margin: 0;
@@ -42,8 +37,7 @@ canvas {
   margin: auto;
   position: absolute;
   top: 0;
-  bottom: 0;
-  box-shadow: 0 0 1vh; }
+  bottom: 0; }
 
 .notDisplay {
   display: none; }
@@ -284,3 +278,5 @@ p {
     text-shadow: 0 0 #0d00a5;
     box-shadow: 0 0 #0d00a5;
     top: 90.289vh; }
+
+/*# sourceMappingURL=style.css.map */

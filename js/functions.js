@@ -18,6 +18,7 @@ function changeSong() {
   Inicio del juego
 ********************/
 function startGame() {
+  canvas.style.setProperty('box-shadow', '0 0 1vh');
   soundsObj.inicio.pause();
   skipStory.style.setProperty('visibilty', 'hidden');
   life.style.setProperty('opacity', 1);
