@@ -11,6 +11,61 @@ function changeSong() {
     i.pause();
   }
   soundsObj.cancionesDelJuego[randomSongInGameIndex].play();
+  soundsObj.cancionesDelJuego[randomSongInGameIndex].volume = 0.05;
+}
+
+function startGame() {
+  soundsObj.inicio.pause();
+  skipStory.style.setProperty('visibilty', 'hidden');
+  life.style.setProperty('opacity', 1);
+  wi(moveSky, 50);
+  onSky.style.setProperty('opacity', 0);
+  nextSongButton.style.setProperty('display', 'inline');
+  canvas.style.setProperty('z-index', `9001`);
+  setCanvasSize(window.innerWidth, 400);
+  window.addEventListener('resize', () => {
+      setCanvasSize(window.innerWidth, 400);
+  });
+  createObjects();
+  soundsObj.bienvenida[randomSongIntroIndex].pause();
+  soundsObj.cancionesDelJuego[randomSongInGameIndex].play(); //se detiene una y empieza otra canción
+  soundsObj.cancionesDelJuego[randomSongInGameIndex].volume = 0.05;
+  soundsObj.intro[r(0, soundsObj.intro.length - 1)].play();
+  console.log(soundsObj.intro[r(0, soundsObj.intro.length - 1)])
+  
+  for (let i of soundsObj.cancionesDelJuego) {
+      i.addEventListener('ended', () => {
+          randomSongInGameIndex++;
+          if (randomSongInGameIndex > soundsObj.cancionesDelJuego.length - 1) {
+              randomSongInGameIndex = 0;
+          }
+          for (let a of soundsObj.cancionesDelJuego) {
+              a.pause();
+          }
+          soundsObj.cancionesDelJuego[randomSongInGameIndex].play();
+          soundsObj.cancionesDelJuego[randomSongInGameIndex].volume = 0.5;
+      });
+  }
+  nextSongButton.addEventListener('click', changeSong);
+  wt(() => {
+      wi(() => {
+          createEnemy();
+      }, 2350);
+  }, 1000);
+  wt(() => {
+      wi(() => {
+          createAsteroid();
+      }, 4000);
+  }, 12000)
+}
+
+function startStoryTelling() {
+  if (storyTellingBool) {
+      tellStory();
+      storyTellingBool = false;
+  } else {
+      startGame();
+  }
 }
 
 function tellStory() {
@@ -20,9 +75,19 @@ function tellStory() {
   startScreen.style.setProperty('opacity', 0);
   onSky.style.setProperty('opacity', 0);
   soundsObj.bienvenida[randomSongIntroIndex].play();
+  soundsObj.bienvenida[randomSongIntroIndex].volume = 0.05;
+  soundsObj.inicio.play();
   storyContainer.style.setProperty('animation', `from-bottom-to-top ${time}s linear forwards`);
-  let bigTimer = wt(() => {
-    skipToStart();
+  wt(() => {
+    storyContainer.style.setProperty('animation', '');
+    if (seeIfStart) {
+      skipToStart();
+    } else {
+      startScreen.style.setProperty('z-index', 10);
+      startScreen.style.setProperty('opacity', 1);
+      onSky.style.setProperty('opacity', 1);
+      skipStory.style.setProperty('visibility', 'hidden');
+    }
   }, time * 1000 + 1000);
   theStartInterval = wi(() => {
     startCounter.innerHTML = time;
@@ -35,13 +100,7 @@ function tellStory() {
 }
 
 function skipToStart() {
-  if (seeIfStart) {
-    startGame();
-  } else {
-    startScreen.style.setProperty('z-index', 10);
-    startScreen.style.setProperty('opacity', 1);
-    onSky.style.setProperty('opacity', 1);
-  }
+  startScreen.style.setProperty('opacity', 0);
   canvas.style.setProperty('display', 'block');
   skipStory.style.setProperty('visibility', 'hidden');
   storyContainer.style.setProperty('animation', '');
@@ -125,7 +184,7 @@ function createAsteroid() {
     w: 60,
     h: 50,
     img: imagesObj.asteroids[r(0, imagesObj.asteroids.length - 1)],
-    speed: r(7, 18)
+    speed: r(15, 18)
   });
 }
 

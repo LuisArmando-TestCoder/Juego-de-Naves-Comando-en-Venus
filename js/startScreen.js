@@ -12,54 +12,6 @@ if (localStorage.getItem('TellingTheBool') === 'true') {
     localStorage.setItem('TellingTheBool', true);
 }
 
-function startGame() {
-    skipStory.style.setProperty('visibilty', 'hidden');
-    life.style.setProperty('opacity', 1);
-    wi(moveSky, 50);
-    onSky.style.setProperty('opacity', 0);
-    nextSongButton.style.setProperty('display', 'inline');
-    canvas.style.setProperty('z-index', `9001`);
-    setCanvasSize(window.innerWidth, 400);
-    window.addEventListener('resize', () => {
-        setCanvasSize(window.innerWidth, 400);
-    });
-    createObjects();
-    soundsObj.bienvenida[randomSongIntroIndex].pause();
-    soundsObj.cancionesDelJuego[randomSongInGameIndex].play(); //se detiene una y empieza otra canción
-    for (let i of soundsObj.cancionesDelJuego) {
-        i.addEventListener('ended', () => {
-            randomSongInGameIndex++;
-            if (randomSongInGameIndex > soundsObj.cancionesDelJuego.length - 1) {
-                randomSongInGameIndex = 0;
-            }
-            for (let a of soundsObj.cancionesDelJuego) {
-                a.pause();
-            }
-            soundsObj.cancionesDelJuego[randomSongInGameIndex].play();
-        });
-    }
-    nextSongButton.addEventListener('click', changeSong);
-    wt(() => {
-        wi(() => {
-            createEnemy();
-        }, 2350);
-    }, 1000);
-    wt(() => {
-        wi(() => {
-            createAsteroid();
-        }, 3000);
-    }, 12000)
-}
-
-function startStoryTelling() {
-    if (storyTellingBool) {
-        tellStory();
-        storyTellingBool = false;
-    } else {
-        startGame();
-    }
-}
-
 function genSky(selector, manyStars) {
     let star = '<div class="star"></div>';
     let onSky = qs(selector);

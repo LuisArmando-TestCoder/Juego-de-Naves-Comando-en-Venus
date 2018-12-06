@@ -8,7 +8,7 @@ let planetX = canvas.width + canvas.width * 2.25;
 let xMovement = planetX;
 let theStartInterval; // to set a counter on corner
 let onSky;
-let bulletSpeed = 10;
+let bulletSpeed = 42;
 let globalPoints = 0;
 let seeIfStart = true;
 
@@ -26,7 +26,7 @@ let ship = {
   life: 21,
   size: 65,
   y: undefined,
-  x: 300,
+  x: 200,
   speed: 10,
   controlsBool: false,
   controls: (e) => {
@@ -92,9 +92,14 @@ let imagesObj = {
   venus: new Image()
 };
 let soundsObj = {
-  inicio: new Audio(),
+  inicio: new Audio('sounds/voices/intro.mp3'),
 
-  balas: new Audio(),
+  intro: [
+    new Audio('sounds/voices/bienvenida1.mp3'),
+    new Audio('sounds/voices/argentina.mp3'),
+    new Audio('sounds/voices/spain.mp3'),
+    new Audio('sounds/voices/cubana.mp3')
+  ],
 
   cancionesDelJuego: [
     new Audio('sounds/gameSongs/GetLucky.mp3'),
@@ -109,23 +114,20 @@ let soundsObj = {
   ],
 
   explosiones: [
-    new Audio(),
-    new Audio(),
-    new Audio()
+    new Audio('sounds/voices/aahh.mp3'),
+    new Audio('sounds/voices/miau.mp3'),
+    new Audio('sounds/voices/miau2.mp3')
   ],
 
   bienvenida: [
     new Audio('sounds/introSongs/AnotherOneBitesTheDust.mp3'),
-    new Audio('sounds/introSongs/StarWars.mp3'),
-    new Audio('sounds/introSongs/TurnDownForWhat.mp3'),
     new Audio('sounds/introSongs/WarPigs.mp3')
   ],
 
-  sonidosSistema: {
-    win: new Audio(),
-    lose: new Audio(),
-    limite: new Audio()
-  },
+  lose: [
+    new Audio('sounds/voices/youlose.mp3'),
+    new Audio('sounds/voices/youlose2.mp3')
+  ],
 
   extra: {
     luis: new Audio('sounds/extras/luis.ogg'),
