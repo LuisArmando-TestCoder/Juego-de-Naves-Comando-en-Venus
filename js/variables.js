@@ -96,8 +96,6 @@ let soundsObj = {
 
   intro: [
     new Audio('sounds/voices/bienvenida1.mp3'),
-    new Audio('sounds/voices/argentina.mp3'),
-    new Audio('sounds/voices/spain.mp3'),
     new Audio('sounds/voices/cubana.mp3')
   ],
 
