@@ -1,6 +1,6 @@
-/***********	
+/*************	
   Funciones	
-************/
+**************/
 function changeSong() {
   soundsObj.cancionesDelJuego[randomSongInGameIndex].pause();
   randomSongInGameIndex++;
@@ -14,6 +14,9 @@ function changeSong() {
   soundsObj.cancionesDelJuego[randomSongInGameIndex].volume = 0.05;
 }
 
+/******************** 
+  Inicio del juego
+********************/
 function startGame() {
   soundsObj.inicio.pause();
   skipStory.style.setProperty('visibilty', 'hidden');

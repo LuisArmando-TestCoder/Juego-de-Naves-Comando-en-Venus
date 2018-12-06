@@ -48,6 +48,10 @@ let ship = {
         if (ship.speed > 0) ship.speed = -ship.speed;
     }
   },
+
+  //--------------------
+  //Botones de disparo
+  //--------------------
   controlsGun: (e) => {
     switch (e.keyCode) {
       case 90: //disparos con la z
@@ -70,6 +74,10 @@ let ship = {
     ctx.drawImage(imagesObj.spaceShip[1], ship.x, ship.y, ship.size, ship.size);
   }
 }
+
+//--------------------
+//Objeto de imagenes
+//--------------------
 let imagesObj = {
   asteroids: [
     new Image(),
@@ -91,6 +99,10 @@ let imagesObj = {
   ],
   venus: new Image()
 };
+
+//-------------------
+// Objeto de sonidos
+//-------------------
 let soundsObj = {
   inicio: new Audio('sounds/voices/intro.mp3'),
 
@@ -133,8 +145,8 @@ let soundsObj = {
   }
 }
 
-/***********
-  extraVariables
-************/
+/*****************
+  ExtraVariables
+******************/
 let randomSongIntroIndex = r(0, soundsObj.bienvenida.length - 1);
 let randomSongInGameIndex = r(0, soundsObj.cancionesDelJuego.length - 1);
