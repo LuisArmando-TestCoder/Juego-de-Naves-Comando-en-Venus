@@ -2,6 +2,7 @@
   Declaración de variables
 ***************************/
 let storyTellingBool;
+let seeIfStartBool = true;
 let ctx = canvas.getContext('2d');
 let planetSize = 550;
 let planetX = canvas.width + canvas.width * 2.25;

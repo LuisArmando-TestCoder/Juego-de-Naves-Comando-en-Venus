@@ -15,6 +15,7 @@ function changeSong() {
 }
 
 function startGame() {
+  seeIfStartBool = false;
   soundsObj.inicio.pause();
   skipStory.style.setProperty('visibilty', 'hidden');
   life.style.setProperty('opacity', 1);
@@ -104,7 +105,10 @@ function skipToStart() {
   canvas.style.setProperty('display', 'block');
   skipStory.style.setProperty('visibility', 'hidden');
   storyContainer.style.setProperty('animation', '');
-  startGame();
+  if(seeIfStartBool){
+    startGame();
+  }
+ 
   window.clearInterval(theStartInterval);
   startCounter.innerHTML = '';
 }
