@@ -1,4 +1,5 @@
 # [Juego-de-Naves-Comando-en-Venus](https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/)
+## [Documento del proyecto](https://docs.google.com/document/d/19EmbKOwv9zPBeUwBnfgpEfCE-R3rCrnGy62vk14pwZg/edit?usp=sharing)
 
 En este proyecto de javascript, se usa localStorage, canvas y audio.
 
