@@ -29,6 +29,10 @@ function startGame() {
   window.addEventListener('resize', () => {
       setCanvasSize(window.innerWidth, 400);
   });
+
+/****************************
+  Creacion de los objetos
+****************************/
   createObjects();
   soundsObj.bienvenida[randomSongIntroIndex].pause();
   soundsObj.cancionesDelJuego[randomSongInGameIndex].play(); //se detiene una y empieza otra canción
@@ -49,6 +53,10 @@ function startGame() {
           soundsObj.cancionesDelJuego[randomSongInGameIndex].volume = 0.5;
       });
   }
+
+/******************************
+  Boton de siguiente cancion 
+******************************/
   nextSongButton.addEventListener('click', changeSong);
   wt(() => {
       wi(() => {
@@ -62,6 +70,9 @@ function startGame() {
   }, 12000)
 }
 
+/*************************************
+  Voz narrando la historia del juego
+*************************************/
 function startStoryTelling() {
   if (storyTellingBool) {
       tellStory();
@@ -133,6 +144,9 @@ function genImages() {
   imagesObj.venus.src = 'img/009-venus.svg';
 }
 
+/**********************
+  Dibujar el planeta
+**********************/
 function drawPlanet() {
   ctx.drawImage(imagesObj.venus, xMovement, 0, canvas.height, canvas.height);
 }
@@ -157,6 +171,9 @@ function drawBullets() {
   }
 }
 
+/***************************
+  Creo las naves enemigas
+****************************/
 function createEnemy() {
   enemiesArray.push({
     x: canvas.width,
@@ -169,6 +186,9 @@ function createEnemy() {
   });
 }
 
+/***************************
+  Dibujo  las naves enemigas
+****************************/
 function drawEnemies() {
   for (let i of enemiesArray) {
     ctx.drawImage(i.img, i.x, i.y, i.w, i.h);
@@ -180,6 +200,9 @@ function drawEnemies() {
   }
 }
 
+/******************************
+  Creacion de los asteroides
+******************************/
 function createAsteroid() {
   asteroidsArray.push({
     x: canvas.width,
@@ -191,6 +214,10 @@ function createAsteroid() {
   });
 }
 
+
+/******************************
+  Dibujo de los asteroides
+******************************/
 function drawAsteroids() {
   for (let i of asteroidsArray) {
     ctx.drawImage(i.img, i.x, i.y, i.w, i.h);
@@ -200,6 +227,9 @@ function drawAsteroids() {
 
 }
 
+/***********************
+  Movimiento del suelo
+************************/
 function moveSky() {
   xMovement -= 2;
   for (let i of document.querySelector('.sky').children) {
@@ -212,6 +242,7 @@ function moveSky() {
     sa(i, 'left', left);
   }
 }
+
 
 function watchBulletAsteroidCollision() {
   for (let i of bulletArray) {
