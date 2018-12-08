@@ -5,15 +5,19 @@ function createObjects() {
 }
 
 function draw() {
-    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-    drawPlanet();
-    ship.setShipPosition();
-    if (bulletArray.length > 0) drawBullets();
-    if (enemiesArray.length > 0) drawEnemies();
-    if (asteroidsArray.length > 0) drawAsteroids();
-    watchBulletAsteroidCollision();
-    watchBulletEnemyCollision();
-    watchThingsSpaceShipCollision();
+    if(!pause){
+        ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+        drawPlanet();
+        ship.setShipPosition();
+        if (bulletArray.length > 0) drawBullets();
+        if (enemiesArray.length > 0) drawEnemies();
+        if (asteroidsArray.length > 0) drawAsteroids();
+        watchBulletAsteroidCollision();
+        watchBulletEnemyCollision();
+        watchThingsSpaceShipCollision(); 
+        moveSky();
+    }
+    
     window.requestAnimationFrame(draw);
 }
 

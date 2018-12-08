@@ -12,6 +12,7 @@ let onSky;
 let bulletSpeed = 42;
 let globalPoints = 0;
 let seeIfStart = true;
+let pause = false;
 
 /***********
   Cadenas
@@ -28,7 +29,7 @@ let ship = {
   size: 65,
   y: undefined,
   x: 200,
-  speed: 10,
+  speed: 7,
   controlsBool: false,
   controls: (e) => {
     switch (e.keyCode) {
@@ -151,3 +152,5 @@ let soundsObj = {
 ******************/
 let randomSongIntroIndex = r(0, soundsObj.bienvenida.length - 1);
 let randomSongInGameIndex = r(0, soundsObj.cancionesDelJuego.length - 1);
+let randomIntroSoundIndex = r(0, soundsObj.intro.length - 1);
+let seeIfIntroSoundStarted = true;

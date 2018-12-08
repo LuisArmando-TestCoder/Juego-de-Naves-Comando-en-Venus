@@ -14,22 +14,41 @@ function changeSong() {
   soundsObj.cancionesDelJuego[randomSongInGameIndex].volume = 0.05;
 }
 
-/******************** 
+/********************
   Inicio del juego
 ********************/
 function startGame() {
+  window.addEventListener('keydown', e => {
+      if(e.keyCode === 80){
+          pause = !pause;
+          if(pause){
+              sp(pauseScreen, 'display', 'grid');
+              console.log(pauseScreen)
+              soundsObj.cancionesDelJuego[randomSongInGameIndex].pause();
+              soundsObj.intro[randomIntroSoundIndex].pause();
+          }else{
+              sp(pauseScreen, 'display', 'none');
+              soundsObj.cancionesDelJuego[randomSongInGameIndex].play();
+              if(seeIfIntroSoundStarted){
+                soundsObj.intro[randomIntroSoundIndex].play();
+                soundsObj.intro[randomIntroSoundIndex].addEventListener('ended', ()=> {
+                  seeIfIntroSoundStarted = false;
+                })
+              }
+          }
+      }
+  });
   seeIfStartBool = false;
   canvas.style.setProperty('box-shadow', '0 0 1vh');
   soundsObj.inicio.pause();
   skipStory.style.setProperty('visibilty', 'hidden');
   life.style.setProperty('opacity', 1);
-  wi(moveSky, 50);
   onSky.style.setProperty('opacity', 0);
   nextSongButton.style.setProperty('display', 'inline');
   canvas.style.setProperty('z-index', `9001`);
-  setCanvasSize(window.innerWidth, 400);
+  setCanvasSize(window.innerWidth, 500);
   window.addEventListener('resize', () => {
-      setCanvasSize(window.innerWidth, 400);
+      setCanvasSize(window.innerWidth, 500);
   });
 
 /****************************
@@ -39,8 +58,7 @@ function startGame() {
   soundsObj.bienvenida[randomSongIntroIndex].pause();
   soundsObj.cancionesDelJuego[randomSongInGameIndex].play(); //se detiene una y empieza otra canción
   soundsObj.cancionesDelJuego[randomSongInGameIndex].volume = 0.05;
-  soundsObj.intro[r(0, soundsObj.intro.length - 1)].play();
-  console.log(soundsObj.intro[r(0, soundsObj.intro.length - 1)])
+  soundsObj.intro[randomIntroSoundIndex].play();
   
   for (let i of soundsObj.cancionesDelJuego) {
       i.addEventListener('ended', () => {
@@ -62,12 +80,12 @@ function startGame() {
   nextSongButton.addEventListener('click', changeSong);
   wt(() => {
       wi(() => {
-          createEnemy();
+        if(!pause) createEnemy();
       }, 2350);
   }, 1000);
   wt(() => {
       wi(() => {
-          createAsteroid();
+        if(!pause) createAsteroid();
       }, 4000);
   }, 12000)
 }
@@ -152,7 +170,7 @@ function genImages() {
   Dibujar el planeta
 **********************/
 function drawPlanet() {
-  ctx.drawImage(imagesObj.venus, xMovement, 0, canvas.height, canvas.height);
+  ctx.drawImage(imagesObj.venus, xMovement, 25, canvas.height - 50, canvas.height - 50);
 }
 
 function createBullet() {

@@ -4,7 +4,7 @@
   left: 5vw;
 }
 
-#life{
+#life {
   opacity: 0;
   transition: 2s;
   position: fixed;
@@ -15,7 +15,23 @@
   display: block;
 }
 
-#seeTheStory{
+#pauseScreen {
+  user-select: none;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  font-size: 10vw;
+  background: #00000088;
+  z-index: 1010101010;
+  text-align: center;
+  display: none;
+  place-items: center;
+  margin: auto;
+}
+
+#seeTheStory {
   position: relative;
   padding: 2vh 2vh;
   border: 0.75vh solid $font-color;
@@ -27,7 +43,7 @@
   box-shadow: 0 $global-measure 0 0 $button-color;
 }
 
-#lastScore{
+#lastScore {
   position: fixed;
   border: 0;
   width: 100%;
@@ -38,7 +54,7 @@
   left: 5vh;
 }
 
-#bestScore{
+#bestScore {
   position: fixed;
   border: 0;
   width: 100%;
@@ -49,7 +65,7 @@
   left: 5vh;
 }
 
-#nextSongButton{
+#nextSongButton {
   position: fixed;
   right: 5vw;
   border: 0;
