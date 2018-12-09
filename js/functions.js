@@ -7,24 +7,24 @@ function getResources() {
   arrayItemsToLoad.push(soundsObj.inicio);
   for (let i in soundsObj) {
     // to get resources between index [0] and the penultimate element
-    if(itemIndex != 0 && itemIndex < 6){
+    if (itemIndex != 0 && itemIndex < 6) {
       for (let a of soundsObj[i]) {
         arrayItemsToLoad.push(a);
       }
     }
     itemIndex += 1;
   }
-  for(let i in soundsObj.extra){
+  for (let i in soundsObj.extra) {
     arrayItemsToLoad.push(soundsObj.extra[i]);
   }
   genImages(false);
   itemIndex = 0;
   for (let i in imagesObj) {
-    if(itemIndex < 4){
-      for(let a of imagesObj[i]){
+    if (itemIndex < 4) {
+      for (let a of imagesObj[i]) {
         arrayItemsToLoad.push(a);
       }
-      
+
     }
     itemIndex += 1;
   }
@@ -33,14 +33,14 @@ function getResources() {
   return arrayItemsToLoad;
   // to get from soundsObj the Audios
 }
-function detectLoadOfResoucesOnArray(resourcesArray){
-  for(let i of resourcesArray){
-    i.addEventListener('load', ()=>{
+function detectLoadOfResoucesOnArray(resourcesArray) {
+  for (let i of resourcesArray) {
+    i.addEventListener('load', () => {
       currentIndexElementLoaded++;
       console.log(i)
       loadValue += 100 / itemsToLoad;//to upgrade bar by percentage
     });
-    i.addEventListener('canplaythrough', ()=>{
+    i.addEventListener('canplaythrough', () => {
       currentIndexElementLoaded++;
       console.log(i)
       loadValue += 100 / itemsToLoad;//to upgrade bar by percentage
@@ -48,12 +48,12 @@ function detectLoadOfResoucesOnArray(resourcesArray){
   }
   loadIntervalIndex = wi(changeLoadState, 0);
 }
-function changeLoadState(){
+function changeLoadState() {
   // loadValue
-  if(loadValue < 100) {
+  if (loadValue < 100) {
     loadBar.style.setProperty('width', `${loadValue}%`);
     ih(theMessages, `Generando ${messages[currentIndexElementLoaded]}`, false);
-  }else if(loadValue > 100){
+  } else if (loadValue > 100) {
     loadBar.style.setProperty('width', '100%');
     ih(theMessages, `Generando ${messages[messages.length - 1]}`, false);
     window.clearInterval(loadIntervalIndex);
@@ -113,7 +113,10 @@ function startGame() {
   soundsObj.bienvenida[randomSongIntroIndex].pause();
   soundsObj.cancionesDelJuego[randomSongInGameIndex].play(); //se detiene una y empieza otra canción
   soundsObj.cancionesDelJuego[randomSongInGameIndex].volume = 0.05;
-  soundsObj.intro[randomIntroSoundIndex].play();
+  if(storyTellingBool){
+    soundsObj.intro[randomIntroSoundIndex].play();
+  }
+  
 
   for (let i of soundsObj.cancionesDelJuego) {
     i.addEventListener('ended', () => {
@@ -134,15 +137,33 @@ function startGame() {
   ******************************/
   nextSongButton.addEventListener('click', changeSong);
   wt(() => {
+    let fibonacciTimes = 0;
+    let fibonacciAuxiliarValue = 1;
+    let seeWhichFibonacciState = true;
     wi(() => {
-      if (!pause) createEnemy();
+      if (!pause) {
+        if (seeWhichFibonacciState) {
+          for (let i = 0; i < fibonacciTimes; i++) {
+            createEnemy();
+          }
+          fibonacciTimes += fibonacciAuxiliarValue;
+          if(fibonacciTimes > 8) fibonacciTimes = 0;
+        } else {
+          for (let i = 0; i < fibonacciAuxiliarValue; i++) {
+            createEnemy();
+          }
+          fibonacciAuxiliarValue += fibonacciTimes;
+          if(fibonacciAuxiliarValue > 8) fibonacciAuxiliarValue = 1;
+        }
+        seeWhichFibonacciState = !seeWhichFibonacciState;
+      }
     }, 3350);
   }, 1000);
   wt(() => {
     wi(() => {
       if (!pause) createAsteroid();
-    }, 4000);
-  }, 12000)
+    }, 2000);
+  }, 8000)
 }
 
 /*************************************
@@ -211,7 +232,7 @@ function genImages(bool = true) {
   imagesObj.ufo[3].src = 'img/005-ufo-3.svg';
   imagesObj.venus.src = 'img/009-venus.svg';
   imagesObj.spaceShip[0].src = 'img/006-spaceship.svg';
-  if(bool){
+  if (bool) {
     imagesObj.spaceShip[0].src = 'img/006-spaceship.svg';
     let imgCounter = 0;
     wi(() => {
@@ -220,7 +241,7 @@ function genImages(bool = true) {
         imgCounter = 0;
       }
       imagesObj.spaceShip[1].src = `img/007-spaceship-1-${imgCounter}.svg`;
-    }, 250); 
+    }, 250);
   }
 }
 
