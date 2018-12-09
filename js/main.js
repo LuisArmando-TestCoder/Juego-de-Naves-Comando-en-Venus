@@ -27,3 +27,5 @@ window.addEventListener('keydown', e => {
 window.addEventListener('keydown', e => {
     ship.controlsGun(e);
 });
+
+detectLoadOfResoucesOnArray(getResources());

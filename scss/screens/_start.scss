@@ -4,6 +4,41 @@
   left: 5vw;
 }
 
+#loadingScreen {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: grid;
+  place-items: center;
+  z-index: 1000000;
+  background: #00000088;
+  .bar {
+    display: block;
+    width: 90%;
+    max-width: 400px;
+    margin: auto;
+    height: 50px;
+    border: 1vh solid $font-color;
+    #loadBar{
+      height: 100%;
+      width: 0%;
+      background:  $font-color;
+    }
+  }
+}
+#loadingScreen > div {
+  width: 100%;
+  text-align: center;
+  line-height: 3;
+  span {
+    &:after{
+      content: '.';
+      animation: loading 2s linear infinite;
+    }
+  }
+}
 #life {
   opacity: 0;
   transition: 2s;
@@ -75,8 +110,8 @@
 
 #startScreen {
   position: relative;
-  transition: 2s;
-  opacity: 1;
+  transition: 0.5s;
+  opacity: 0;
   text-align: center;
   height: 50vh;
   top: 0;

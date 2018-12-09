@@ -13,6 +13,10 @@ let bulletSpeed = 42;
 let globalPoints = 0;
 let seeIfStart = true;
 let pause = false;
+let itemsToLoad;
+let loadValue = 0;
+let currentIndexElementLoaded = 0;
+let loadIntervalIndex;
 
 /***********
   Cadenas
@@ -20,6 +24,40 @@ let pause = false;
 let bulletArray = [];
 let enemiesArray = [];
 let asteroidsArray = [];
+let messages = [    
+  "motor de fotones",
+  "rayo de plasma",
+  "inhibidor de antigravedad",
+  "cañon de antimateria",
+  "compartimento de bebidas energéticas",
+  "aistema de autodestrucción",
+  "generador de partículas",
+  "mecanismo de acoplamiento",
+  "escudo térmico",
+  "módulo de teletranspotación",
+  "inodoro moderno japonés",
+  "tanques de dióxido",
+  "frecuencias de comunicación",
+  "sala de control",
+  "cápsula de emergencia",
+  "receptores de radiación",
+  "sensores de proximidad ",
+  "radar de neutrinos",
+  "adornos de obsidiana",
+  "paneles rotatorios",
+  "gafas de sol",
+  "sistema de camuflaje",
+  "medidor de fuentes magnéticas",
+  "caleidoscopio",
+  "invernadero",
+  "hidromasajeador",
+  "ondas de choque temporales",
+  "microprocesadores",
+  "compuertas XOR",
+  "satélites naturales",
+  "cubierta de orichalcum",
+  "easter eggs"
+];    
 
 /***********
   Objetos
@@ -29,7 +67,7 @@ let ship = {
   size: 65,
   y: undefined,
   x: 200,
-  speed: 7,
+  speed: 9,
   controlsBool: false,
   controls: (e) => {
     switch (e.keyCode) {

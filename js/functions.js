@@ -1,6 +1,66 @@
 /*************	
   Funciones	
 **************/
+function getResources() {
+  let arrayItemsToLoad = [];
+  let itemIndex = 0;
+  arrayItemsToLoad.push(soundsObj.inicio);
+  for (let i in soundsObj) {
+    // to get resources between index [0] and the penultimate element
+    if(itemIndex != 0 && itemIndex < 6){
+      for (let a of soundsObj[i]) {
+        arrayItemsToLoad.push(a);
+      }
+    }
+    itemIndex += 1;
+  }
+  for(let i in soundsObj.extra){
+    arrayItemsToLoad.push(soundsObj.extra[i]);
+  }
+  genImages(false);
+  itemIndex = 0;
+  for (let i in imagesObj) {
+    if(itemIndex < 4){
+      for(let a of imagesObj[i]){
+        arrayItemsToLoad.push(a);
+      }
+      
+    }
+    itemIndex += 1;
+  }
+  itemsToLoad = arrayItemsToLoad.length - 1;
+  arrayItemsToLoad.push(imagesObj.venus);
+  return arrayItemsToLoad;
+  // to get from soundsObj the Audios
+}
+function detectLoadOfResoucesOnArray(resourcesArray){
+  for(let i of resourcesArray){
+    i.addEventListener('load', ()=>{
+      currentIndexElementLoaded++;
+      console.log(i)
+      loadValue += 100 / itemsToLoad;//to upgrade bar by percentage
+    });
+    i.addEventListener('canplaythrough', ()=>{
+      currentIndexElementLoaded++;
+      console.log(i)
+      loadValue += 100 / itemsToLoad;//to upgrade bar by percentage
+    });
+  }
+  loadIntervalIndex = wi(changeLoadState, 0);
+}
+function changeLoadState(){
+  // loadValue
+  if(loadValue < 100) {
+    loadBar.style.setProperty('width', `${loadValue}%`);
+    ih(theMessages, `Generando ${messages[currentIndexElementLoaded]}`, false);
+  }else if(loadValue > 100){
+    loadBar.style.setProperty('width', '100%');
+    ih(theMessages, `Generando ${messages[messages.length - 1]}`, false);
+    window.clearInterval(loadIntervalIndex);
+    startScreen.style.setProperty('opacity', 1);
+    loadingScreen.style.setProperty('display', 'none');
+  }
+}
 function changeSong() {
   soundsObj.cancionesDelJuego[randomSongInGameIndex].pause();
   randomSongInGameIndex++;
@@ -13,30 +73,25 @@ function changeSong() {
   soundsObj.cancionesDelJuego[randomSongInGameIndex].play();
   soundsObj.cancionesDelJuego[randomSongInGameIndex].volume = 0.05;
 }
-
-/********************
-  Inicio del juego
-********************/
 function startGame() {
   window.addEventListener('keydown', e => {
-      if(e.keyCode === 80){
-          pause = !pause;
-          if(pause){
-              sp(pauseScreen, 'display', 'grid');
-              console.log(pauseScreen)
-              soundsObj.cancionesDelJuego[randomSongInGameIndex].pause();
-              soundsObj.intro[randomIntroSoundIndex].pause();
-          }else{
-              sp(pauseScreen, 'display', 'none');
-              soundsObj.cancionesDelJuego[randomSongInGameIndex].play();
-              if(seeIfIntroSoundStarted){
-                soundsObj.intro[randomIntroSoundIndex].play();
-                soundsObj.intro[randomIntroSoundIndex].addEventListener('ended', ()=> {
-                  seeIfIntroSoundStarted = false;
-                })
-              }
-          }
+    if (e.keyCode === 80) {
+      pause = !pause;
+      if (pause) {
+        sp(pauseScreen, 'display', 'grid');
+        soundsObj.cancionesDelJuego[randomSongInGameIndex].pause();
+        soundsObj.intro[randomIntroSoundIndex].pause();
+      } else {
+        sp(pauseScreen, 'display', 'none');
+        soundsObj.cancionesDelJuego[randomSongInGameIndex].play();
+        if (seeIfIntroSoundStarted) {
+          soundsObj.intro[randomIntroSoundIndex].play();
+          soundsObj.intro[randomIntroSoundIndex].addEventListener('ended', () => {
+            seeIfIntroSoundStarted = false;
+          })
+        }
       }
+    }
   });
   seeIfStartBool = false;
   canvas.style.setProperty('box-shadow', '0 0 1vh');
@@ -48,45 +103,45 @@ function startGame() {
   canvas.style.setProperty('z-index', `9001`);
   setCanvasSize(window.innerWidth, 500);
   window.addEventListener('resize', () => {
-      setCanvasSize(window.innerWidth, 500);
+    setCanvasSize(window.innerWidth, 500);
   });
 
-/****************************
-  Creacion de los objetos
-****************************/
+  /****************************
+    Creacion de los objetos
+  ****************************/
   createObjects();
   soundsObj.bienvenida[randomSongIntroIndex].pause();
   soundsObj.cancionesDelJuego[randomSongInGameIndex].play(); //se detiene una y empieza otra canción
   soundsObj.cancionesDelJuego[randomSongInGameIndex].volume = 0.05;
   soundsObj.intro[randomIntroSoundIndex].play();
-  
+
   for (let i of soundsObj.cancionesDelJuego) {
-      i.addEventListener('ended', () => {
-          randomSongInGameIndex++;
-          if (randomSongInGameIndex > soundsObj.cancionesDelJuego.length - 1) {
-              randomSongInGameIndex = 0;
-          }
-          for (let a of soundsObj.cancionesDelJuego) {
-              a.pause();
-          }
-          soundsObj.cancionesDelJuego[randomSongInGameIndex].play();
-          soundsObj.cancionesDelJuego[randomSongInGameIndex].volume = 0.5;
-      });
+    i.addEventListener('ended', () => {
+      randomSongInGameIndex++;
+      if (randomSongInGameIndex > soundsObj.cancionesDelJuego.length - 1) {
+        randomSongInGameIndex = 0;
+      }
+      for (let a of soundsObj.cancionesDelJuego) {
+        a.pause();
+      }
+      soundsObj.cancionesDelJuego[randomSongInGameIndex].play();
+      soundsObj.cancionesDelJuego[randomSongInGameIndex].volume = 0.5;
+    });
   }
 
-/******************************
-  Boton de siguiente cancion 
-******************************/
+  /******************************
+    Boton de siguiente cancion 
+  ******************************/
   nextSongButton.addEventListener('click', changeSong);
   wt(() => {
-      wi(() => {
-        if(!pause) createEnemy();
-      }, 2350);
+    wi(() => {
+      if (!pause) createEnemy();
+    }, 3350);
   }, 1000);
   wt(() => {
-      wi(() => {
-        if(!pause) createAsteroid();
-      }, 4000);
+    wi(() => {
+      if (!pause) createAsteroid();
+    }, 4000);
   }, 12000)
 }
 
@@ -95,10 +150,10 @@ function startGame() {
 *************************************/
 function startStoryTelling() {
   if (storyTellingBool) {
-      tellStory();
-      storyTellingBool = false;
+    tellStory();
+    storyTellingBool = false;
   } else {
-      startGame();
+    startGame();
   }
 }
 
@@ -138,25 +193,16 @@ function skipToStart() {
   canvas.style.setProperty('display', 'block');
   skipStory.style.setProperty('visibility', 'hidden');
   storyContainer.style.setProperty('animation', '');
-  if(seeIfStartBool){
+  if (seeIfStartBool) {
     startGame();
   }
   window.clearInterval(theStartInterval);
   startCounter.innerHTML = '';
 }
 
-function genImages() {
+function genImages(bool = true) {
   imagesObj.asteroids[0].src = 'img/003-asteroid.svg';
   imagesObj.asteroids[1].src = 'img/008-asteroid-1.svg';
-  imagesObj.spaceShip[0].src = 'img/006-spaceship.svg';
-  let imgCounter = 0;
-  wi(() => {
-    imgCounter++;
-    if (imgCounter === 3) {
-      imgCounter = 0;
-    }
-    imagesObj.spaceShip[1].src = `img/007-spaceship-1-${imgCounter}.svg`;
-  }, 250);
   imagesObj.boom[0].src = 'img/011-explosion.svg';
   imagesObj.boom[1].src = 'img/012-boom.svg';
   imagesObj.ufo[0].src = 'img/001-ufo.svg';
@@ -164,6 +210,18 @@ function genImages() {
   imagesObj.ufo[2].src = 'img/004-ufo-2.svg';
   imagesObj.ufo[3].src = 'img/005-ufo-3.svg';
   imagesObj.venus.src = 'img/009-venus.svg';
+  imagesObj.spaceShip[0].src = 'img/006-spaceship.svg';
+  if(bool){
+    imagesObj.spaceShip[0].src = 'img/006-spaceship.svg';
+    let imgCounter = 0;
+    wi(() => {
+      imgCounter++;
+      if (imgCounter === 3) {
+        imgCounter = 0;
+      }
+      imagesObj.spaceShip[1].src = `img/007-spaceship-1-${imgCounter}.svg`;
+    }, 250); 
+  }
 }
 
 /**********************
@@ -180,7 +238,6 @@ function createBullet() {
     r: 5
   });
 }
-
 
 function drawBullets() {
   for (let i of bulletArray) {
@@ -203,7 +260,7 @@ function createEnemy() {
     w: 60,
     h: 50,
     img: imagesObj.ufo[r(0, imagesObj.ufo.length - 1)],
-    speed: r(4, 8),
+    speed: r(10, 18),
     dmg: 0
   });
 }
@@ -232,7 +289,7 @@ function createAsteroid() {
     w: 60,
     h: 50,
     img: imagesObj.asteroids[r(0, imagesObj.asteroids.length - 1)],
-    speed: r(15, 18)
+    speed: r(20, 28)
   });
 }
 
@@ -271,9 +328,9 @@ function watchBulletAsteroidCollision() {
     for (let a of asteroidsArray) {
       //MY OWN COLLISIONS BABY!!!!! FINALLY I DID IT!!!!
       if (!(a.x - (i.x + i.r) >= 0 ||
-          (i.x + i.r * -1) - (a.x + a.w) >= 0 ||
-          a.y - (i.y + i.r) >= 0 ||
-          (i.y + i.r * -1) - (a.y + a.h) >= 0)) {
+        (i.x + i.r * -1) - (a.x + a.w) >= 0 ||
+        a.y - (i.y + i.r) >= 0 ||
+        (i.y + i.r * -1) - (a.y + a.h) >= 0)) {
         bulletArray.splice(bulletArray.indexOf(i), 1);
       }
     }
@@ -285,9 +342,9 @@ function watchBulletEnemyCollision() {
     for (let a of enemiesArray) {
       //MY OWN COLLISIONS BABY!!!!! FINALLY I DID IT!!!!
       if (!(a.x - (i.x + i.r) >= 0 ||
-          (i.x + i.r * -1) - (a.x + a.w) >= 0 ||
-          a.y - (i.y + i.r) >= 0 ||
-          (i.y + i.r * -1) - (a.y + a.h) >= 0)) {
+        (i.x + i.r * -1) - (a.x + a.w) >= 0 ||
+        a.y - (i.y + i.r) >= 0 ||
+        (i.y + i.r * -1) - (a.y + a.h) >= 0)) {
         if (a.dmg < 1) {
           bulletArray.splice(bulletArray.indexOf(i), 1);
           a.dmg++;
@@ -305,9 +362,9 @@ function watchThingsSpaceShipCollision() {
   for (let a of enemiesArray) {
     //MY OWN COLLISIONS BABY!!!!! FINALLY I DID IT!!!!
     if (!(a.x - (ship.x + ship.size / 2) >= 0 ||
-        (ship.x + ship.size / 2 * -1) - (a.x + a.w) >= 0 ||
-        a.y - (ship.y + ship.size / 2) >= 0 ||
-        (ship.y + ship.size / 2 * -1) - (a.y + a.h) >= 0)) {
+      (ship.x + ship.size / 2 * -1) - (a.x + a.w) >= 0 ||
+      a.y - (ship.y + ship.size / 2) >= 0 ||
+      (ship.y + ship.size / 2 * -1) - (a.y + a.h) >= 0)) {
       enemiesArray.splice(enemiesArray.indexOf(a), 1);
       getPoint();
       ship.life--;
@@ -323,9 +380,9 @@ function watchThingsSpaceShipCollision() {
   for (let a of asteroidsArray) {
     //MY OWN COLLISIONS BABY!!!!! FINALLY I DID IT!!!!
     if (!(a.x - (ship.x + ship.size / 2) >= 0 ||
-        (ship.x + ship.size / 2 * -1) - (a.x + a.w) >= 0 ||
-        a.y - (ship.y + ship.size / 2) >= 0 ||
-        (ship.y + ship.size / 2 * -1) - (a.y + a.h) >= 0)) {
+      (ship.x + ship.size / 2 * -1) - (a.x + a.w) >= 0 ||
+      a.y - (ship.y + ship.size / 2) >= 0 ||
+      (ship.y + ship.size / 2 * -1) - (a.y + a.h) >= 0)) {
       ship.life--;
       life.innerHTML = '';
       if (ship.life === 0) {

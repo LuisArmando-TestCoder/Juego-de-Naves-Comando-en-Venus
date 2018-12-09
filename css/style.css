@@ -1,12 +1,14 @@
 @keyframes jump {
   80% {
     top: -5px; } }
+
 @keyframes from-bottom-to-top {
   95% {
     opacity: 1; }
   100% {
     opacity: 0;
     top: -230vh; } }
+
 @keyframes pass-through {
   0% {
     bottom: 100%;
@@ -18,12 +20,21 @@
   100% {
     bottom: 0;
     top: 100%; } }
+
 @keyframes rotating-sky {
   100% {
     transform: rotate(360deg); } }
+
 @keyframes opac {
   50% {
     opacity: 0; } }
+
+@keyframes loading {
+  33% {
+    content: '..'; }
+  66% {
+    content: '...'; } }
+
 body {
   background: #000;
   margin: 0;
@@ -103,6 +114,36 @@ p {
   position: fixed;
   top: 5vh;
   left: 5vw; }
+
+#loadingScreen {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: grid;
+  place-items: center;
+  z-index: 1000000;
+  background: #00000088; }
+  #loadingScreen .bar {
+    display: block;
+    width: 90%;
+    max-width: 400px;
+    margin: auto;
+    height: 50px;
+    border: 1vh solid #fecf01; }
+    #loadingScreen .bar #loadBar {
+      height: 100%;
+      width: 0%;
+      background: #fecf01; }
+
+#loadingScreen > div {
+  width: 100%;
+  text-align: center;
+  line-height: 3; }
+  #loadingScreen > div span:after {
+    content: '.';
+    animation: loading 2s linear infinite; }
 
 #life {
   opacity: 0;
@@ -217,8 +258,8 @@ p {
 
 #startScreen {
   position: relative;
-  transition: 2s;
-  opacity: 1;
+  transition: 0.5s;
+  opacity: 0;
   text-align: center;
   height: 50vh;
   top: 0;
@@ -293,5 +334,3 @@ p {
     text-shadow: 0 0 #0d00a5;
     box-shadow: 0 0 #0d00a5;
     top: 90.289vh; }
-
-/*# sourceMappingURL=style.css.map */

@@ -1,14 +1,15 @@
 const life = gi('life'),
+    loadBar = gi('loadBar'),
     startButton = gi('start'),
     bestScore = gi('bestScore'),
     lastScore = gi('lastScore'),
     skipStory = gi('skipStory'),
+    theMessages = gi('messages'),
     pauseScreen = gi('pauseScreen'),
     startScreen = gi('startScreen'),
     seeTheStory = gi('seeTheStory'),
     startCounter = gi('startCounter'),
+    loadingScreen = gi('loadingScreen'),
     nextSongButton = gi('nextSongButton');
 let canvas = qs('canvas');
 let storyContainer = qs('.container p');
-
-console.log(skipStory)
