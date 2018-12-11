@@ -37,12 +37,10 @@ function detectLoadOfResoucesOnArray(resourcesArray) {
   for (let i of resourcesArray) {
     i.addEventListener('load', () => {
       currentIndexElementLoaded++;
-      console.log(i)
       loadValue += 100 / itemsToLoad;//to upgrade bar by percentage
     });
     i.addEventListener('canplaythrough', () => {
       currentIndexElementLoaded++;
-      console.log(i)
       loadValue += 100 / itemsToLoad;//to upgrade bar by percentage
     });
   }
@@ -147,17 +145,17 @@ function startGame() {
             createEnemy();
           }
           fibonacciTimes += fibonacciAuxiliarValue;
-          if(fibonacciTimes > 8) fibonacciTimes = 0;
+          if(fibonacciTimes > 4) fibonacciTimes = 0;
         } else {
           for (let i = 0; i < fibonacciAuxiliarValue; i++) {
             createEnemy();
           }
           fibonacciAuxiliarValue += fibonacciTimes;
-          if(fibonacciAuxiliarValue > 8) fibonacciAuxiliarValue = 1;
+          if(fibonacciAuxiliarValue > 4) fibonacciAuxiliarValue = 1;
         }
         seeWhichFibonacciState = !seeWhichFibonacciState;
       }
-    }, 3350);
+    }, 1800);
   }, 1000);
   wt(() => {
     wi(() => {
@@ -231,6 +229,7 @@ function genImages(bool = true) {
   imagesObj.ufo[2].src = 'img/004-ufo-2.svg';
   imagesObj.ufo[3].src = 'img/005-ufo-3.svg';
   imagesObj.venus.src = 'img/009-venus.svg';
+  imagesObj.boom[0].src = 'img/011-explosion.svg';
   imagesObj.spaceShip[0].src = 'img/006-spaceship.svg';
   if (bool) {
     imagesObj.spaceShip[0].src = 'img/006-spaceship.svg';
@@ -268,6 +267,28 @@ function drawBullets() {
     ctx.fill();
     i.x += bulletSpeed;
     if (i.x - i.r > canvas.width) bulletArray.splice(bulletArray.indexOf(i), 1);
+  }
+}
+
+function createExplosion(x, y, w, h) {
+  explosionArray.push({
+    x: x,
+    y: y,
+    w: w,
+    h: h,
+    speed: 1,
+    count: 0
+  });
+}
+
+function drawExplosions() {
+  for (let i of explosionArray) {
+    ctx.drawImage(imagesObj.boom[1], i.x, i.y, i.w, i.h);
+    i.count += 5;
+    i.x -= i.speed;
+    if (i.count > 24) {
+      explosionArray.splice(explosionArray.indexOf(i), 1);
+    }
   }
 }
 
@@ -369,8 +390,8 @@ function watchBulletEnemyCollision() {
         if (a.dmg < 1) {
           bulletArray.splice(bulletArray.indexOf(i), 1);
           a.dmg++;
-          console.log(a.dmg);
         } else {
+          createExplosion(a.x, a.y, a.w, a.h);
           enemiesArray.splice(enemiesArray.indexOf(a), 1);
           getPoint();
         }
@@ -386,6 +407,7 @@ function watchThingsSpaceShipCollision() {
       (ship.x + ship.size / 2 * -1) - (a.x + a.w) >= 0 ||
       a.y - (ship.y + ship.size / 2) >= 0 ||
       (ship.y + ship.size / 2 * -1) - (a.y + a.h) >= 0)) {
+      createExplosion(a.x, a.y, a.w, a.h);
       enemiesArray.splice(enemiesArray.indexOf(a), 1);
       getPoint();
       ship.life--;

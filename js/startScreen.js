@@ -43,7 +43,7 @@ function genParticles(selector, manyLines) {
 }
 
 
-genSky('.sky', 180);
+genSky('.sky', 80);
 genParticles('.particles', 20);
 nextSongButton.style.setProperty('display', 'none');
 

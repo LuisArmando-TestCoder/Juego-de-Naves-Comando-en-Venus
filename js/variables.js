@@ -24,6 +24,7 @@ let loadIntervalIndex;
 let bulletArray = [];
 let enemiesArray = [];
 let asteroidsArray = [];
+let explosionArray = [];
 let messages = [    
   "motor de fotones",
   "rayo de plasma",
