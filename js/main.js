@@ -5,7 +5,7 @@ function createObjects() {
 }
 
 function draw() {
-    if(!pause){
+    if (!pause) {
         ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
         drawPlanet();
         ship.setShipPosition();
@@ -15,10 +15,10 @@ function draw() {
         if (explosionArray.length > 0) drawExplosions();
         watchBulletAsteroidCollision();
         watchBulletEnemyCollision();
-        watchThingsSpaceShipCollision(); 
+        watchThingsSpaceShipCollision();
         moveSky();
     }
-    
+
     window.requestAnimationFrame(draw);
 }
 

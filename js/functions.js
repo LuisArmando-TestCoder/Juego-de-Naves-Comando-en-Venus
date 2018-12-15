@@ -160,7 +160,7 @@ function startGame() {
   wt(() => {
     wi(() => {
       if (!pause) createAsteroid();
-    }, 2000);
+    }, 500);
   }, 8000)
 }
 
@@ -220,26 +220,26 @@ function skipToStart() {
 }
 
 function genImages(bool = true) {
-  imagesObj.asteroids[0].src = 'img/003-asteroid.svg';
-  imagesObj.asteroids[1].src = 'img/008-asteroid-1.svg';
-  imagesObj.boom[0].src = 'img/011-explosion.svg';
-  imagesObj.boom[1].src = 'img/012-boom.svg';
-  imagesObj.ufo[0].src = 'img/001-ufo.svg';
-  imagesObj.ufo[1].src = 'img/002-ufo-1.svg';
-  imagesObj.ufo[2].src = 'img/004-ufo-2.svg';
-  imagesObj.ufo[3].src = 'img/005-ufo-3.svg';
-  imagesObj.venus.src = 'img/009-venus.svg';
-  imagesObj.boom[0].src = 'img/011-explosion.svg';
-  imagesObj.spaceShip[0].src = 'img/006-spaceship.svg';
+  imagesObj.asteroids[0].src = 'https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/003-asteroid.svg';
+  imagesObj.asteroids[1].src = 'https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/008-asteroid-1.svg';
+  imagesObj.boom[0].src = 'https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/011-explosion.svg';
+  imagesObj.boom[1].src = 'https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/012-boom.svg';
+  imagesObj.ufo[0].src = 'https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/001-ufo.svg';
+  imagesObj.ufo[1].src = 'https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/002-ufo-1.svg';
+  imagesObj.ufo[2].src = 'https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/004-ufo-2.svg';
+  imagesObj.ufo[3].src = 'https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/005-ufo-3.svg';
+  imagesObj.venus.src = 'https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/009-venus.svg';
+  imagesObj.boom[0].src = 'https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/011-explosion.svg';
+  imagesObj.spaceShip[0].src = 'https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/006-spaceship.svg';
   if (bool) {
-    imagesObj.spaceShip[0].src = 'img/006-spaceship.svg';
+    imagesObj.spaceShip[0].src = 'https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/006-spaceship.svg';
     let imgCounter = 0;
     wi(() => {
       imgCounter++;
       if (imgCounter === 3) {
         imgCounter = 0;
       }
-      imagesObj.spaceShip[1].src = `img/007-spaceship-1-${imgCounter}.svg`;
+      imagesObj.spaceShip[1].src = `https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/007-spaceship-1-${imgCounter}.svg`;
     }, 250);
   }
 }
@@ -269,6 +269,30 @@ function drawBullets() {
     if (i.x - i.r > canvas.width) bulletArray.splice(bulletArray.indexOf(i), 1);
   }
 }
+// Put an index to the enemies pls...
+// function createEnemiesLife(x, y, w, h, speed, lifeCount) {
+//   //put in w the enemy width divided by this.lifeCount
+//   remainingLifeArray.push({
+//     x: x,
+//     y: y,
+//     w: w * this.lifeCount,
+//     h: h,
+//     speed: speed,
+//     lifeCount: lifeCount
+//   });
+// }
+
+// function drawEnemiesLife() {
+//   for (let i of remainingLifeArray) {
+//     ctx.beginPath();
+//     ctx.fillRect(i.x, i.y, i.w, i.h);
+//     ctx.fillStyle = '#fecf01';
+//     i.x -= i.speed;
+//     if (i.lifeCount === 0) {
+//       remainingLifeArray.splice(remainingLifeArray.indexOf(i), 1);
+//     }
+//   }
+// }
 
 function createExplosion(x, y, w, h) {
   explosionArray.push({
@@ -286,7 +310,7 @@ function drawExplosions() {
     ctx.drawImage(imagesObj.boom[1], i.x, i.y, i.w, i.h);
     i.count += 5;
     i.x -= i.speed;
-    if (i.count > 24) {
+    if (i.count > 100) {
       explosionArray.splice(explosionArray.indexOf(i), 1);
     }
   }
@@ -302,7 +326,7 @@ function createEnemy() {
     w: 60,
     h: 50,
     img: imagesObj.ufo[r(0, imagesObj.ufo.length - 1)],
-    speed: r(10, 18),
+    speed: r(8, 14),
     dmg: 0
   });
 }
