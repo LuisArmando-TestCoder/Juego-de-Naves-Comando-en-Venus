@@ -275,8 +275,7 @@ function createEnemiesLife(x, y, w, h, speed, lifeCount, lifeIndex) {
   remainingLifeArray.push({
     x: x,
     y: y,
-    w: w, // maxW - maxW / count
-    mawW: w,
+    w: w,
     h: h,
     speed: speed,
     lifeCount: lifeCount,
@@ -397,6 +396,14 @@ function destroyLifeBar(index) { // index must be enemy[number].enemyIndex
     }
   }
 }
+
+function changeLifeBar(index) { // index must be enemy[number].enemyIndex
+  for (let i of remainingLifeArray) {
+    if (i.lifeIndex == index) {
+      i.w -= i.w / i.lifeCount;
+    }
+  }
+}
 /***********************
   Movimiento del suelo
 ************************/
@@ -439,6 +446,8 @@ function watchBulletEnemyCollision() {
         if (a.dmg < 1) {
           bulletArray.splice(bulletArray.indexOf(i), 1);
           a.dmg++;
+          drawEnemiesLife()
+          changeLifeBar(a.enemyIndex);
         } else {
           createExplosion(a.x, a.y, a.w, a.h);
           // ds life bar
