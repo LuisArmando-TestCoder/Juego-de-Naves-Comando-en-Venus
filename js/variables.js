@@ -18,6 +18,7 @@ let itemsToLoad;
 let loadValue = 0;
 let currentIndexElementLoaded = 0;
 let loadIntervalIndex;
+let enemyIndex = 0;
 
 /***********
   Cadenas

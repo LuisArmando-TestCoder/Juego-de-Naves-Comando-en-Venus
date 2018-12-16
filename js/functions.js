@@ -111,10 +111,10 @@ function startGame() {
   soundsObj.bienvenida[randomSongIntroIndex].pause();
   soundsObj.cancionesDelJuego[randomSongInGameIndex].play(); //se detiene una y empieza otra canción
   soundsObj.cancionesDelJuego[randomSongInGameIndex].volume = 0.05;
-  if(storyTellingBool){
+  if (storyTellingBool) {
     soundsObj.intro[randomIntroSoundIndex].play();
   }
-  
+
 
   for (let i of soundsObj.cancionesDelJuego) {
     i.addEventListener('ended', () => {
@@ -145,13 +145,13 @@ function startGame() {
             createEnemy();
           }
           fibonacciTimes += fibonacciAuxiliarValue;
-          if(fibonacciTimes > 4) fibonacciTimes = 0;
+          if (fibonacciTimes > 4) fibonacciTimes = 0;
         } else {
           for (let i = 0; i < fibonacciAuxiliarValue; i++) {
             createEnemy();
           }
           fibonacciAuxiliarValue += fibonacciTimes;
-          if(fibonacciAuxiliarValue > 4) fibonacciAuxiliarValue = 1;
+          if (fibonacciAuxiliarValue > 4) fibonacciAuxiliarValue = 1;
         }
         seeWhichFibonacciState = !seeWhichFibonacciState;
       }
@@ -160,7 +160,7 @@ function startGame() {
   wt(() => {
     wi(() => {
       if (!pause) createAsteroid();
-    }, 500);
+    }, 1500);
   }, 8000)
 }
 
@@ -270,29 +270,28 @@ function drawBullets() {
   }
 }
 // Put an index to the enemies pls...
-// function createEnemiesLife(x, y, w, h, speed, lifeCount) {
-//   //put in w the enemy width divided by this.lifeCount
-//   remainingLifeArray.push({
-//     x: x,
-//     y: y,
-//     w: w * this.lifeCount,
-//     h: h,
-//     speed: speed,
-//     lifeCount: lifeCount
-//   });
-// }
+function createEnemiesLife(x, y, w, h, speed, lifeCount, lifeIndex) {
+  //put in w the enemy width divided by this.lifeCount
+  remainingLifeArray.push({
+    x: x,
+    y: y,
+    w: w, // maxW - maxW / count
+    mawW: w,
+    h: h,
+    speed: speed,
+    lifeCount: lifeCount,
+    lifeIndex: lifeIndex
+  });
+}
 
-// function drawEnemiesLife() {
-//   for (let i of remainingLifeArray) {
-//     ctx.beginPath();
-//     ctx.fillRect(i.x, i.y, i.w, i.h);
-//     ctx.fillStyle = '#fecf01';
-//     i.x -= i.speed;
-//     if (i.lifeCount === 0) {
-//       remainingLifeArray.splice(remainingLifeArray.indexOf(i), 1);
-//     }
-//   }
-// }
+function drawEnemiesLife() {
+  for (let i of remainingLifeArray) {
+    ctx.beginPath();
+    ctx.fillRect(i.x, i.y, i.w, i.h);
+    ctx.fillStyle = '#fecf01';
+    i.x -= i.speed;
+  }
+}
 
 function createExplosion(x, y, w, h) {
   explosionArray.push({
@@ -327,9 +326,26 @@ function createEnemy() {
     h: 50,
     img: imagesObj.ufo[r(0, imagesObj.ufo.length - 1)],
     speed: r(8, 14),
-    dmg: 0
+    dmg: 0,
+    enemyIndex: enemyIndex
   });
+  let lastEnemy = enemiesArray[enemiesArray.length - 1]
+  createEnemiesLife(
+    lastEnemy.x,
+    lastEnemy.y + lastEnemy.h + 10,
+    lastEnemy.w,
+    5,
+    lastEnemy.speed,
+    2,
+    lastEnemy.enemyIndex
+  );
+  let lastLifeBar = remainingLifeArray[remainingLifeArray.length - 1]
+  enemyIndex++;
+  console.clear();
+  console.log('enemy: ' + lastEnemy.enemyIndex);
+  console.log('lifeBar: ' + lastLifeBar.lifeIndex);
 }
+
 
 /***************************
   Dibujo  las naves enemigas
@@ -340,6 +356,8 @@ function drawEnemies() {
     i.x -= i.speed;
     if (i.x + i.w < 0) {
       lessPoint();
+      // ds life bar
+      destroyLifeBar(i.enemyIndex);
       enemiesArray.splice(enemiesArray.indexOf(i), 1);
     }
   }
@@ -372,6 +390,13 @@ function drawAsteroids() {
 
 }
 
+function destroyLifeBar(index) { // index must be enemy[number].enemyIndex
+  for (let i of remainingLifeArray) {
+    if (i.lifeIndex == index) {
+      remainingLifeArray.splice(remainingLifeArray.indexOf(i), 1);
+    }
+  }
+}
 /***********************
   Movimiento del suelo
 ************************/
@@ -416,6 +441,8 @@ function watchBulletEnemyCollision() {
           a.dmg++;
         } else {
           createExplosion(a.x, a.y, a.w, a.h);
+          // ds life bar
+          destroyLifeBar(a.enemyIndex);
           enemiesArray.splice(enemiesArray.indexOf(a), 1);
           getPoint();
         }
@@ -432,6 +459,8 @@ function watchThingsSpaceShipCollision() {
       a.y - (ship.y + ship.size / 2) >= 0 ||
       (ship.y + ship.size / 2 * -1) - (a.y + a.h) >= 0)) {
       createExplosion(a.x, a.y, a.w, a.h);
+      // ds life bar
+      destroyLifeBar(a.enemyIndex);
       enemiesArray.splice(enemiesArray.indexOf(a), 1);
       getPoint();
       ship.life--;
