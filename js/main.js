@@ -17,6 +17,7 @@ function draw() {
         watchBulletEnemyCollision();
         watchThingsSpaceShipCollision();
         moveSky();
+        generateItem.byFrame();
     }
 
     window.requestAnimationFrame(draw);

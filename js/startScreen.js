@@ -3,8 +3,6 @@ if (!(localStorage.getItem('bestScore') == null || localStorage.getItem('lastSco
     lastScore.innerHTML = `Puntuación más reciente: ${localStorage.getItem('lastScore')}`;
 }
 
-// localStorage.setItem('TellingTheBool', false);
-
 if (localStorage.getItem('TellingTheBool') === 'true') {
     storyTellingBool = false;
 } else {

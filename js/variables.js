@@ -71,7 +71,7 @@ let ship = {
   size: 65,
   y: undefined,
   x: 200,
-  speed: 6,
+  speed: 3,
   controlsBool: false,
   controls: (e) => {
     switch (e.keyCode) {
@@ -93,9 +93,6 @@ let ship = {
     }
   },
 
-  //--------------------
-  //Botones de disparo
-  //--------------------
   controlsGun: (e) => {
     switch (e.keyCode) {
       case 90: //disparos con la z
@@ -119,9 +116,6 @@ let ship = {
   }
 }
 
-//--------------------
-//Objeto de imagenes
-//--------------------
 let imagesObj = {
   asteroids: [
     new Image(),
@@ -144,9 +138,6 @@ let imagesObj = {
   venus: new Image()
 };
 
-//-------------------
-// Objeto de sonidos
-//-------------------
 let soundsObj = {
   inicio: new Audio('https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/sounds/voices/intro.mp3'),
 
@@ -189,10 +180,9 @@ let soundsObj = {
   }
 }
 
-/*****************
-  ExtraVariables
-******************/
 let randomSongIntroIndex = r(0, soundsObj.bienvenida.length - 1);
 let randomSongInGameIndex = r(0, soundsObj.cancionesDelJuego.length - 1);
 let randomIntroSoundIndex = r(0, soundsObj.intro.length - 1);
 let seeIfIntroSoundStarted = true;
+
+let generateItem = generate();

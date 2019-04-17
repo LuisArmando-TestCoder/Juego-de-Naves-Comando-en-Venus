@@ -1,6 +1,3 @@
-/*************	
-  Funciones	
-**************/
 function getResources() {
   let arrayItemsToLoad = [];
   let itemIndex = 0;
@@ -24,7 +21,6 @@ function getResources() {
       for (let a of imagesObj[i]) {
         arrayItemsToLoad.push(a);
       }
-
     }
     itemIndex += 1;
   }
@@ -33,32 +29,35 @@ function getResources() {
   return arrayItemsToLoad;
   // to get from soundsObj the Audios
 }
+
 function detectLoadOfResoucesOnArray(resourcesArray) {
   for (let i of resourcesArray) {
-    i.addEventListener('load', () => {
+    i.addEventListener("load", () => {
       currentIndexElementLoaded++;
-      loadValue += 100 / itemsToLoad;//to upgrade bar by percentage
+      loadValue += 100 / itemsToLoad; //to upgrade bar by percentage
     });
-    i.addEventListener('canplaythrough', () => {
+    i.addEventListener("canplaythrough", () => {
       currentIndexElementLoaded++;
-      loadValue += 100 / itemsToLoad;//to upgrade bar by percentage
+      loadValue += 100 / itemsToLoad; //to upgrade bar by percentage
     });
   }
   loadIntervalIndex = wi(changeLoadState, 0);
 }
+
 function changeLoadState() {
   // loadValue
   if (loadValue < 100) {
-    loadBar.style.setProperty('width', `${loadValue}%`);
+    loadBar.style.setProperty("width", `${loadValue}%`);
     ih(theMessages, `Generando ${messages[currentIndexElementLoaded]}`, false);
   } else if (loadValue > 100) {
-    loadBar.style.setProperty('width', '100%');
+    loadBar.style.setProperty("width", "100%");
     ih(theMessages, `Generando ${messages[messages.length - 1]}`, false);
     window.clearInterval(loadIntervalIndex);
-    startScreen.style.setProperty('opacity', 1);
-    loadingScreen.style.setProperty('display', 'none');
+    startScreen.style.setProperty("opacity", 1);
+    loadingScreen.style.setProperty("display", "none");
   }
 }
+
 function changeSong() {
   soundsObj.cancionesDelJuego[randomSongInGameIndex].pause();
   randomSongInGameIndex++;
@@ -71,53 +70,53 @@ function changeSong() {
   soundsObj.cancionesDelJuego[randomSongInGameIndex].play();
   soundsObj.cancionesDelJuego[randomSongInGameIndex].volume = 0.05;
 }
+
 function startGame() {
-  window.addEventListener('keydown', e => {
+  window.addEventListener("keydown", e => {
     if (e.keyCode === 80) {
       pause = !pause;
       if (pause) {
-        sp(pauseScreen, 'display', 'grid');
+        sp(pauseScreen, "display", "grid");
         soundsObj.cancionesDelJuego[randomSongInGameIndex].pause();
         soundsObj.intro[randomIntroSoundIndex].pause();
       } else {
-        sp(pauseScreen, 'display', 'none');
+        sp(pauseScreen, "display", "none");
         soundsObj.cancionesDelJuego[randomSongInGameIndex].play();
         if (seeIfIntroSoundStarted) {
           soundsObj.intro[randomIntroSoundIndex].play();
-          soundsObj.intro[randomIntroSoundIndex].addEventListener('ended', () => {
-            seeIfIntroSoundStarted = false;
-          })
+          soundsObj.intro[randomIntroSoundIndex].addEventListener(
+            "ended",
+            () => {
+              seeIfIntroSoundStarted = false;
+            }
+          );
         }
       }
     }
   });
   seeIfStartBool = false;
-  canvas.style.setProperty('box-shadow', '0 0 1vh');
+  canvas.style.setProperty("box-shadow", "0 0 1vh");
   soundsObj.inicio.pause();
-  skipStory.style.setProperty('visibilty', 'hidden');
-  life.style.setProperty('opacity', 1);
-  onSky.style.setProperty('opacity', 0);
-  nextSongButton.style.setProperty('display', 'inline');
-  canvas.style.setProperty('z-index', `9001`);
+  skipStory.style.setProperty("visibilty", "hidden");
+  life.style.setProperty("opacity", 1);
+  onSky.style.setProperty("opacity", 0);
+  nextSongButton.style.setProperty("display", "inline");
+  canvas.style.setProperty("z-index", `9001`);
   setCanvasSize(window.innerWidth, 500);
-  window.addEventListener('resize', () => {
+  window.addEventListener("resize", () => {
     setCanvasSize(window.innerWidth, 500);
   });
 
-  /****************************
-    Creacion de los objetos
-  ****************************/
   createObjects();
   soundsObj.bienvenida[randomSongIntroIndex].pause();
-  soundsObj.cancionesDelJuego[randomSongInGameIndex].play(); //se detiene una y empieza otra canción
+  soundsObj.cancionesDelJuego[randomSongInGameIndex].play();
   soundsObj.cancionesDelJuego[randomSongInGameIndex].volume = 0.05;
   if (storyTellingBool) {
     soundsObj.intro[randomIntroSoundIndex].play();
   }
 
-
   for (let i of soundsObj.cancionesDelJuego) {
-    i.addEventListener('ended', () => {
+    i.addEventListener("ended", () => {
       randomSongInGameIndex++;
       if (randomSongInGameIndex > soundsObj.cancionesDelJuego.length - 1) {
         randomSongInGameIndex = 0;
@@ -130,43 +129,20 @@ function startGame() {
     });
   }
 
-  /******************************
-    Boton de siguiente cancion 
-  ******************************/
-  nextSongButton.addEventListener('click', changeSong);
-  wt(() => {
-    let fibonacciTimes = 0;
-    let fibonacciAuxiliarValue = 1;
-    let seeWhichFibonacciState = true;
-    wi(() => {
-      if (!pause) {
-        if (seeWhichFibonacciState) {
-          for (let i = 0; i < fibonacciTimes; i++) {
-            createEnemy();
-          }
-          fibonacciTimes += fibonacciAuxiliarValue;
-          if (fibonacciTimes > 4) fibonacciTimes = 0;
-        } else {
-          for (let i = 0; i < fibonacciAuxiliarValue; i++) {
-            createEnemy();
-          }
-          fibonacciAuxiliarValue += fibonacciTimes;
-          if (fibonacciAuxiliarValue > 4) fibonacciAuxiliarValue = 1;
-        }
-        seeWhichFibonacciState = !seeWhichFibonacciState;
-      }
-    }, 1800);
-  }, 1000);
-  wt(() => {
-    wi(() => {
-      if (!pause) createAsteroid();
-    }, 1500);
-  }, 8000)
+  nextSongButton.addEventListener("click", changeSong);
 }
 
-/*************************************
-  Voz narrando la historia del juego
-*************************************/
+function generate() {
+  let requestIteration = 0;
+  return {
+    byFrame() {
+      requestIteration += 1;
+      if(requestIteration % 100 === 0) createAsteroid();
+      if(requestIteration % 80 === 0) createEnemy();
+    }
+  }
+}
+
 function startStoryTelling() {
   if (storyTellingBool) {
     tellStory();
@@ -177,24 +153,27 @@ function startStoryTelling() {
 }
 
 function tellStory() {
-  skipStory.style.setProperty('visibility', 'visible');
+  skipStory.style.setProperty("visibility", "visible");
   let time = 42;
-  startScreen.style.setProperty('z-index', -1);
-  startScreen.style.setProperty('opacity', 0);
-  onSky.style.setProperty('opacity', 0);
+  startScreen.style.setProperty("z-index", -1);
+  startScreen.style.setProperty("opacity", 0);
+  onSky.style.setProperty("opacity", 0);
   soundsObj.bienvenida[randomSongIntroIndex].play();
   soundsObj.bienvenida[randomSongIntroIndex].volume = 0.05;
   soundsObj.inicio.play();
-  storyContainer.style.setProperty('animation', `from-bottom-to-top ${time}s linear forwards`);
+  storyContainer.style.setProperty(
+    "animation",
+    `from-bottom-to-top ${time}s linear forwards`
+  );
   wt(() => {
-    storyContainer.style.setProperty('animation', '');
+    storyContainer.style.setProperty("animation", "");
     if (seeIfStart) {
       skipToStart();
     } else {
-      startScreen.style.setProperty('z-index', 10);
-      startScreen.style.setProperty('opacity', 1);
-      onSky.style.setProperty('opacity', 1);
-      skipStory.style.setProperty('visibility', 'hidden');
+      startScreen.style.setProperty("z-index", 10);
+      startScreen.style.setProperty("opacity", 1);
+      onSky.style.setProperty("opacity", 1);
+      skipStory.style.setProperty("visibility", "hidden");
     }
   }, time * 1000 + 1000);
   theStartInterval = wi(() => {
@@ -202,37 +181,49 @@ function tellStory() {
     time--;
     if (time < 0) {
       window.clearInterval(theStartInterval);
-      startCounter.innerHTML = '';
+      startCounter.innerHTML = "";
     }
   }, 1000);
 }
 
 function skipToStart() {
-  startScreen.style.setProperty('opacity', 0);
-  canvas.style.setProperty('display', 'block');
-  skipStory.style.setProperty('visibility', 'hidden');
-  storyContainer.style.setProperty('animation', '');
+  startScreen.style.setProperty("opacity", 0);
+  canvas.style.setProperty("display", "block");
+  skipStory.style.setProperty("visibility", "hidden");
+  storyContainer.style.setProperty("animation", "");
   if (seeIfStartBool) {
     startGame();
   }
   window.clearInterval(theStartInterval);
-  startCounter.innerHTML = '';
+  startCounter.innerHTML = "";
 }
 
 function genImages(bool = true) {
-  imagesObj.asteroids[0].src = 'https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/003-asteroid.svg';
-  imagesObj.asteroids[1].src = 'https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/008-asteroid-1.svg';
-  imagesObj.boom[0].src = 'https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/011-explosion.svg';
-  imagesObj.boom[1].src = 'https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/012-boom.svg';
-  imagesObj.ufo[0].src = 'https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/001-ufo.svg';
-  imagesObj.ufo[1].src = 'https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/002-ufo-1.svg';
-  imagesObj.ufo[2].src = 'https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/004-ufo-2.svg';
-  imagesObj.ufo[3].src = 'https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/005-ufo-3.svg';
-  imagesObj.venus.src = 'https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/009-venus.svg';
-  imagesObj.boom[0].src = 'https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/011-explosion.svg';
-  imagesObj.spaceShip[0].src = 'https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/006-spaceship.svg';
+  imagesObj.asteroids[0].src =
+    "https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/003-asteroid.svg";
+  imagesObj.asteroids[1].src =
+    "https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/008-asteroid-1.svg";
+  imagesObj.boom[0].src =
+    "https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/011-explosion.svg";
+  imagesObj.boom[1].src =
+    "https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/012-boom.svg";
+  imagesObj.ufo[0].src =
+    "https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/001-ufo.svg";
+  imagesObj.ufo[1].src =
+    "https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/002-ufo-1.svg";
+  imagesObj.ufo[2].src =
+    "https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/004-ufo-2.svg";
+  imagesObj.ufo[3].src =
+    "https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/005-ufo-3.svg";
+  imagesObj.venus.src =
+    "https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/009-venus.svg";
+  imagesObj.boom[0].src =
+    "https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/011-explosion.svg";
+  imagesObj.spaceShip[0].src =
+    "https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/006-spaceship.svg";
   if (bool) {
-    imagesObj.spaceShip[0].src = 'https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/006-spaceship.svg';
+    imagesObj.spaceShip[0].src =
+      "https://luisarmando-testcoder.github.io/Juego-de-Naves-Comando-en-Venus/img/006-spaceship.svg";
     let imgCounter = 0;
     wi(() => {
       imgCounter++;
@@ -244,11 +235,14 @@ function genImages(bool = true) {
   }
 }
 
-/**********************
-  Dibujar el planeta
-**********************/
 function drawPlanet() {
-  ctx.drawImage(imagesObj.venus, xMovement, 25, canvas.height - 50, canvas.height - 50);
+  ctx.drawImage(
+    imagesObj.venus,
+    xMovement,
+    25,
+    canvas.height - 50,
+    canvas.height - 50
+  );
 }
 
 function createBullet() {
@@ -263,7 +257,7 @@ function drawBullets() {
   for (let i of bulletArray) {
     ctx.beginPath();
     ctx.arc(i.x, i.y, i.r, 0, Math.PI * 2, false);
-    ctx.fillStyle = '#fecf01';
+    ctx.fillStyle = "#fecf01";
     ctx.fill();
     i.x += bulletSpeed;
     if (i.x - i.r > canvas.width) bulletArray.splice(bulletArray.indexOf(i), 1);
@@ -292,9 +286,6 @@ function drawExplosions() {
   }
 }
 
-/***************************
-  Creo las naves enemigas
-****************************/
 function createEnemy() {
   enemiesArray.push({
     x: canvas.width,
@@ -302,17 +293,13 @@ function createEnemy() {
     w: 60,
     h: 50,
     img: imagesObj.ufo[r(0, imagesObj.ufo.length - 1)],
-    speed: r(8, 14),
+    speed: r(5, 10),
     dmg: 0,
     enemyIndex: enemyIndex
   });
   enemyIndex++;
 }
 
-
-/***************************
-  Dibujo  las naves enemigas
-****************************/
 function drawEnemies() {
   for (let i of enemiesArray) {
     ctx.drawImage(i.img, i.x, i.y, i.w, i.h);
@@ -324,9 +311,6 @@ function drawEnemies() {
   }
 }
 
-/******************************
-  Creacion de los asteroides
-******************************/
 function createAsteroid() {
   asteroidsArray.push({
     x: canvas.width,
@@ -334,48 +318,42 @@ function createAsteroid() {
     w: 60,
     h: 50,
     img: imagesObj.asteroids[r(0, imagesObj.asteroids.length - 1)],
-    speed: r(20, 28)
+    speed: r(10, 28)
   });
 }
 
-
-/******************************
-  Dibujo de los asteroides
-******************************/
 function drawAsteroids() {
   for (let i of asteroidsArray) {
     ctx.drawImage(i.img, i.x, i.y, i.w, i.h);
     i.x -= i.speed;
     if (i.x + i.w < 0) asteroidsArray.splice(asteroidsArray.indexOf(i), 1);
   }
-
 }
 
-/***********************
-  Movimiento del suelo
-************************/
 function moveSky() {
   xMovement -= 2;
-  for (let i of document.querySelector('.sky').children) {
-    let left = i.getAttribute('left') - 0.05;
+  for (let i of document.querySelector(".sky").children) {
+    let left = i.getAttribute("left") - 0.05;
     if (left < 0) {
       left = 100;
-      sp(i, 'top', r(0, 99) + '%');
+      sp(i, "top", r(0, 99) + "%");
     }
-    sp(i, 'left', left + '%');
-    sa(i, 'left', left);
+    sp(i, "left", left + "%");
+    sa(i, "left", left);
   }
 }
-
 
 function watchBulletAsteroidCollision() {
   for (let i of bulletArray) {
     for (let a of asteroidsArray) {
-      //MY OWN COLLISIONS BABY!!!!! FINALLY I DID IT!!!!
-      if (!(a.x - (i.x + i.r) >= 0 ||
-        (i.x + i.r * -1) - (a.x + a.w) >= 0 ||
-        a.y - (i.y + i.r) >= 0 ||
-        (i.y + i.r * -1) - (a.y + a.h) >= 0)) {
+      if (
+        !(
+          a.x - (i.x + i.r) >= 0 ||
+          i.x + i.r * -1 - (a.x + a.w) >= 0 ||
+          a.y - (i.y + i.r) >= 0 ||
+          i.y + i.r * -1 - (a.y + a.h) >= 0
+        )
+      ) {
         bulletArray.splice(bulletArray.indexOf(i), 1);
       }
     }
@@ -385,17 +363,20 @@ function watchBulletAsteroidCollision() {
 function watchBulletEnemyCollision() {
   for (let i of bulletArray) {
     for (let a of enemiesArray) {
-      //MY OWN COLLISIONS BABY!!!!! FINALLY I DID IT!!!!
-      if (!(a.x - (i.x + i.r) >= 0 ||
-        (i.x + i.r * -1) - (a.x + a.w) >= 0 ||
-        a.y - (i.y + i.r) >= 0 ||
-        (i.y + i.r * -1) - (a.y + a.h) >= 0)) {
+      if (
+        !(
+          a.x - (i.x + i.r) >= 0 ||
+          i.x + i.r * -1 - (a.x + a.w) >= 0 ||
+          a.y - (i.y + i.r) >= 0 ||
+          i.y + i.r * -1 - (a.y + a.h) >= 0
+        )
+      ) {
         if (a.dmg < 1) {
           bulletArray.splice(bulletArray.indexOf(i), 1);
           a.dmg++;
         } else {
           createExplosion(a.x, a.y, a.w, a.h);
-      
+
           enemiesArray.splice(enemiesArray.indexOf(a), 1);
           getPoint();
         }
@@ -406,37 +387,44 @@ function watchBulletEnemyCollision() {
 
 function watchThingsSpaceShipCollision() {
   for (let a of enemiesArray) {
-    //MY OWN COLLISIONS BABY!!!!! FINALLY I DID IT!!!!
-    if (!(a.x - (ship.x + ship.size / 2) >= 0 ||
-      (ship.x + ship.size / 2 * -1) - (a.x + a.w) >= 0 ||
-      a.y - (ship.y + ship.size / 2) >= 0 ||
-      (ship.y + ship.size / 2 * -1) - (a.y + a.h) >= 0)) {
+    if (
+      !(
+        a.x - (ship.x + ship.size / 2) >= 0 ||
+        ship.x + (ship.size / 2) * -1 - (a.x + a.w) >= 0 ||
+        a.y - (ship.y + ship.size / 2) >= 0 ||
+        ship.y + (ship.size / 2) * -1 - (a.y + a.h) >= 0
+      )
+    ) {
       createExplosion(a.x, a.y, a.w, a.h);
       enemiesArray.splice(enemiesArray.indexOf(a), 1);
       getPoint();
       ship.life--;
-      life.innerHTML = '';
+      life.innerHTML = "";
       if (ship.life === 0) {
         gameOver();
       }
       for (let i = 0; i < ship.life; i++) {
-        life.innerHTML += '❤';
+        life.innerHTML += "❤";
       }
     }
   }
   for (let a of asteroidsArray) {
     //MY OWN COLLISIONS BABY!!!!! FINALLY I DID IT!!!!
-    if (!(a.x - (ship.x + ship.size / 2) >= 0 ||
-      (ship.x + ship.size / 2 * -1) - (a.x + a.w) >= 0 ||
-      a.y - (ship.y + ship.size / 2) >= 0 ||
-      (ship.y + ship.size / 2 * -1) - (a.y + a.h) >= 0)) {
+    if (
+      !(
+        a.x - (ship.x + ship.size / 2) >= 0 ||
+        ship.x + (ship.size / 2) * -1 - (a.x + a.w) >= 0 ||
+        a.y - (ship.y + ship.size / 2) >= 0 ||
+        ship.y + (ship.size / 2) * -1 - (a.y + a.h) >= 0
+      )
+    ) {
       ship.life--;
-      life.innerHTML = '';
+      life.innerHTML = "";
       if (ship.life === 0) {
         gameOver();
       }
       for (let i = 0; i < ship.life; i++) {
-        life.innerHTML += '❤';
+        life.innerHTML += "❤";
       }
     }
   }
@@ -453,11 +441,11 @@ function lessPoint() {
 }
 
 function gameOver() {
-  localStorage.setItem('lastScore', globalPoints);
-  if (localStorage.getItem('bestScore') < globalPoints) {
-    localStorage.setItem('bestScore', globalPoints);
+  localStorage.setItem("lastScore", globalPoints);
+  if (localStorage.getItem("bestScore") < globalPoints) {
+    localStorage.setItem("bestScore", globalPoints);
   }
-  location.replace('index.html');
+  location.replace("index.html");
 }
 
 function setCanvasSize(w, h) {
