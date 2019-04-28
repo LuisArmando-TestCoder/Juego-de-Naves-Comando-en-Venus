@@ -28,6 +28,7 @@ let enemiesArray = [];
 let asteroidsArray = [];
 let explosionArray = [];
 let remainingLifeArray = [];
+let heartsArray = [];
 let messages = [    
   'motor de fotones',
   'rayo de plasma',
@@ -71,7 +72,7 @@ let ship = {
   size: 65,
   y: undefined,
   x: 200,
-  speed: 3,
+  speed: 7,
   controlsBool: false,
   controls: (e) => {
     switch (e.keyCode) {

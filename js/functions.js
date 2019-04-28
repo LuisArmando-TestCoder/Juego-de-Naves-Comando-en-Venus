@@ -139,6 +139,7 @@ function generate() {
       requestIteration += 1;
       if(requestIteration % 100 === 0) createAsteroid();
       if(requestIteration % 80 === 0) createEnemy();
+      if(requestIteration % 100 === 0) createHeart();
     }
   }
 }
@@ -190,7 +191,7 @@ function skipToStart() {
   startScreen.style.setProperty("opacity", 0);
   canvas.style.setProperty("display", "block");
   skipStory.style.setProperty("visibility", "hidden");
-  storyContainer.style.setProperty("animation", "");
+  storyContainer.style.setProperty("animation", "");n
   if (seeIfStartBool) {
     startGame();
   }
@@ -305,7 +306,7 @@ function drawEnemies() {
     ctx.drawImage(i.img, i.x, i.y, i.w, i.h);
     i.x -= i.speed;
     if (i.x + i.w < 0) {
-      lessPoint();
+      lessPoint(5);
       enemiesArray.splice(enemiesArray.indexOf(i), 1);
     }
   }
@@ -326,7 +327,30 @@ function drawAsteroids() {
   for (let i of asteroidsArray) {
     ctx.drawImage(i.img, i.x, i.y, i.w, i.h);
     i.x -= i.speed;
-    if (i.x + i.w < 0) asteroidsArray.splice(asteroidsArray.indexOf(i), 1);
+    if (i.x + i.w < 0) {
+      lessPoint();
+      asteroidsArray.splice(asteroidsArray.indexOf(i), 1);
+    }
+  }
+}
+
+function createHeart() {
+  heartsArray.push({
+    x: canvas.width,
+    y: r(0, canvas.height - 60),
+    size: 16,
+    color: '#fecf01',
+    text: '❤',
+    speed: r(7, 14),
+  });
+}
+
+function drawHearts() {
+  for (let i of heartsArray) {
+    ctx.font = `${i.size}px sans-serif`;
+    ctx.fillText(i.text, i.x, i.y);
+    i.x -= i.speed;
+    if (i.x + i.w < 0) heartsArray.splice(heartsArray.indexOf(i), 1);
   }
 }
 
@@ -378,7 +402,7 @@ function watchBulletEnemyCollision() {
           createExplosion(a.x, a.y, a.w, a.h);
 
           enemiesArray.splice(enemiesArray.indexOf(a), 1);
-          getPoint();
+          getPoint(3);
         }
       }
     }
@@ -397,7 +421,7 @@ function watchThingsSpaceShipCollision() {
     ) {
       createExplosion(a.x, a.y, a.w, a.h);
       enemiesArray.splice(enemiesArray.indexOf(a), 1);
-      getPoint();
+      getPoint(2);
       ship.life--;
       life.innerHTML = "";
       if (ship.life === 0) {
@@ -409,7 +433,6 @@ function watchThingsSpaceShipCollision() {
     }
   }
   for (let a of asteroidsArray) {
-    //MY OWN COLLISIONS BABY!!!!! FINALLY I DID IT!!!!
     if (
       !(
         a.x - (ship.x + ship.size / 2) >= 0 ||
@@ -428,15 +451,30 @@ function watchThingsSpaceShipCollision() {
       }
     }
   }
+  for (let a of heartsArray) {
+    if (
+      !(
+        a.x - (ship.x + ship.size / 2) >= 0 ||
+        ship.x + (ship.size / 2) * -1 - (a.x + a.size) >= 0 ||
+        a.y - (ship.y + ship.size / 2) >= 0 ||
+        ship.y + (ship.size / 2) * -1 - (a.y + a.size) >= 0
+      )
+    ) {
+      ship.life++;
+      life.innerHTML += "❤";
+      getPoint();
+      heartsArray.splice(heartsArray.indexOf(a), 1);
+    }
+  }
 }
 
-function getPoint() {
-  globalPoints++;
+function getPoint(times = 1) {
+  globalPoints += times;
   startCounter.innerHTML = globalPoints;
 }
 
-function lessPoint() {
-  globalPoints--;
+function lessPoint(times = 1) {
+  globalPoints -= times;
   startCounter.innerHTML = globalPoints;
 }
 

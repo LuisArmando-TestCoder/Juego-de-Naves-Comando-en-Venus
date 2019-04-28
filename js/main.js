@@ -13,6 +13,7 @@ function draw() {
         if (enemiesArray.length > 0) drawEnemies();
         if (asteroidsArray.length > 0) drawAsteroids();
         if (explosionArray.length > 0) drawExplosions();
+        if (heartsArray.length > 0) drawHearts();
         watchBulletAsteroidCollision();
         watchBulletEnemyCollision();
         watchThingsSpaceShipCollision();
